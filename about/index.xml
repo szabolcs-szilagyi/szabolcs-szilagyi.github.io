@@ -1,17 +1,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Abouts on this&#39;n&#39;that</title>
-		<link>http://szab.it/about/</link>
+		<link>https://szab.it/about/</link>
 		<description>Recent content in Abouts on this&#39;n&#39;that</description>
 		<generator>Hugo 0.62.0 -- gohugo.io</generator>
 		<language>en-us</language>
 		<lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0100</lastBuildDate>
-		<atom:link href="http://szab.it/about/index.xml" rel="self" type="application/rss+xml" />
+		<atom:link href="https://szab.it/about/index.xml" rel="self" type="application/rss+xml" />
 		<item>
 			<title>About</title>
-			<link>http://szab.it/about/about/</link>
+			<link>https://szab.it/about/about/</link>
 			<pubDate>Fri, 17 Jan 2020 00:00:00 +0100</pubDate>
-			<guid isPermaLink="true">http://szab.it/about/about/</guid>
+			<guid isPermaLink="true">https://szab.it/about/about/</guid>
 			<description>&lt;p&gt;Well hello there!&lt;/p&gt;
 &lt;p&gt;This page is just another blog, that may or may not get forgotten over time.&lt;/p&gt;
 &lt;p&gt;As the title suggests it will contain posts from this and that. Main topic will
@@ -20,9 +20,9 @@ always be IT related.&lt;/p&gt;
 		</item>
 		<item>
 			<title>$ who</title>
-			<link>http://szab.it/about/who/</link>
+			<link>https://szab.it/about/who/</link>
 			<pubDate>Mon, 20 Sep 2010 00:00:00 +0200</pubDate>
-			<guid isPermaLink="true">http://szab.it/about/who/</guid>
+			<guid isPermaLink="true">https://szab.it/about/who/</guid>
 			<description>&lt;p&gt;Who am I?&lt;/p&gt;
 &lt;p&gt;I&#39;m Szabolcs Szilágyi or Szabi (prn. Saby) for short. A software developer,
 enjoying work with nodeJS to build performant microservices.&lt;/p&gt;

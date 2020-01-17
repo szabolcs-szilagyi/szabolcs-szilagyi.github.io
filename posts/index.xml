@@ -1,17 +1,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Posts on this&#39;n&#39;that</title>
-		<link>http://szab.it/posts/</link>
+		<link>https://szab.it/posts/</link>
 		<description>Recent content in Posts on this&#39;n&#39;that</description>
 		<generator>Hugo 0.62.0 -- gohugo.io</generator>
 		<language>en-us</language>
 		<lastBuildDate>Sat, 11 Feb 2017 11:08:00 +0100</lastBuildDate>
-		<atom:link href="http://szab.it/posts/index.xml" rel="self" type="application/rss+xml" />
+		<atom:link href="https://szab.it/posts/index.xml" rel="self" type="application/rss+xml" />
 		<item>
 			<title>Git global ignore file</title>
-			<link>http://szab.it/posts/git-global-ignore-file/</link>
+			<link>https://szab.it/posts/git-global-ignore-file/</link>
 			<pubDate>Sat, 11 Feb 2017 11:08:00 +0100</pubDate>
-			<guid isPermaLink="true">http://szab.it/posts/git-global-ignore-file/</guid>
+			<guid isPermaLink="true">https://szab.it/posts/git-global-ignore-file/</guid>
 			<description>&lt;p&gt;the repo and you don&#39;t even want it to be listed in the &lt;code&gt;.gitignore&lt;/code&gt; file of the
 repository.&lt;/p&gt;
 &lt;p&gt;If you have multiple repositories, then there is a nice way to do it per user,
