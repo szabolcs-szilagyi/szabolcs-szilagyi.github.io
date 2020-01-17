@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://szab.it/about/about/</loc>
+    <lastmod>2020-01-17T14:42:22+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://szab.it/about/who/</loc>
+    <lastmod>2020-01-17T14:40:24+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://szab.it/about/</loc>
+    <lastmod>2020-01-17T14:42:22+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://szab.it/</loc>
+    <lastmod>2020-01-17T14:42:22+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://szab.it/posts/git-global-ignore-file/</loc>
+    <lastmod>2020-01-17T14:40:25+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://szab.it/posts/</loc>
+    <lastmod>2020-01-17T14:40:25+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://szab.it/tags/</loc>
+  </url>
+  
+</urlset>

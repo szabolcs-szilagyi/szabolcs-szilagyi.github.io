@@ -1,0 +1,45 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Abouts on this&#39;n&#39;that</title>
+		<link>http://szab.it/about/</link>
+		<description>Recent content in Abouts on this&#39;n&#39;that</description>
+		<generator>Hugo 0.62.0 -- gohugo.io</generator>
+		<language>en-us</language>
+		<lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0100</lastBuildDate>
+		<atom:link href="http://szab.it/about/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>About</title>
+			<link>http://szab.it/about/about/</link>
+			<pubDate>Fri, 17 Jan 2020 00:00:00 +0100</pubDate>
+			<guid isPermaLink="true">http://szab.it/about/about/</guid>
+			<description>&lt;p&gt;Well hello there!&lt;/p&gt;
+&lt;p&gt;This page is just another blog, that may or may not get forgotten over time.&lt;/p&gt;
+&lt;p&gt;As the title suggests it will contain posts from this and that. Main topic will
+always be IT related.&lt;/p&gt;
+</description>
+		</item>
+		<item>
+			<title>$ who</title>
+			<link>http://szab.it/about/who/</link>
+			<pubDate>Mon, 20 Sep 2010 00:00:00 +0200</pubDate>
+			<guid isPermaLink="true">http://szab.it/about/who/</guid>
+			<description>&lt;p&gt;Who am I?&lt;/p&gt;
+&lt;p&gt;I&#39;m Szabolcs Szilágyi or Szabi (prn. Saby) for short. A software developer,
+enjoying work with nodeJS to build performant microservices.&lt;/p&gt;
+&lt;p&gt;In 2014 I&#39;ve had the luck to join a french start-up company as a jnr.
+JavaScript/nodejs programmer. It has been an intense start with the company, new
+domain and technologies. But luckily I&#39;ve enjoyed learning it all, so managed to
+stick with them since then. As the company grown I also got the chance to grow
+in both as a programmer and later as a lead.&lt;/p&gt;
+&lt;p&gt;Currently I&#39;m a team lead for a relatively big team and numerous services.&lt;/p&gt;
+&lt;p&gt;Really enjoy both participating and leading discussions about technical
+challenges that our teams encounter. Like to discover both the hacky and the
+idealistic solutions and their pros and cons.&lt;/p&gt;
+&lt;p&gt;Apart form work I really like to cycle and attend organized bike tours with my
+family.&lt;/p&gt;
+&lt;p&gt;You can find up-to-date information me, on my linkedin profile:
+&lt;a href=&#34;https://www.linkedin.com/in/szabszilagyi/&#34;&gt;https://www.linkedin.com/in/szabszilagyi/&lt;/a&gt;&lt;/p&gt;
+</description>
+		</item>
+	</channel>
+</rss>

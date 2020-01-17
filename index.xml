@@ -1,0 +1,67 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>this&#39;n&#39;that</title>
+		<link>http://szab.it/</link>
+		<description>Recent content on this&#39;n&#39;that</description>
+		<generator>Hugo 0.62.0 -- gohugo.io</generator>
+		<language>en-us</language>
+		<lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0100</lastBuildDate>
+		<atom:link href="http://szab.it/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>About</title>
+			<link>http://szab.it/about/about/</link>
+			<pubDate>Fri, 17 Jan 2020 00:00:00 +0100</pubDate>
+			<guid isPermaLink="true">http://szab.it/about/about/</guid>
+			<description>&lt;p&gt;Well hello there!&lt;/p&gt;
+&lt;p&gt;This page is just another blog, that may or may not get forgotten over time.&lt;/p&gt;
+&lt;p&gt;As the title suggests it will contain posts from this and that. Main topic will
+always be IT related.&lt;/p&gt;
+</description>
+		</item>
+		<item>
+			<title>$ who</title>
+			<link>http://szab.it/about/who/</link>
+			<pubDate>Mon, 20 Sep 2010 00:00:00 +0200</pubDate>
+			<guid isPermaLink="true">http://szab.it/about/who/</guid>
+			<description>&lt;p&gt;Who am I?&lt;/p&gt;
+&lt;p&gt;I&#39;m Szabolcs Szilágyi or Szabi (prn. Saby) for short. A software developer,
+enjoying work with nodeJS to build performant microservices.&lt;/p&gt;
+&lt;p&gt;In 2014 I&#39;ve had the luck to join a french start-up company as a jnr.
+JavaScript/nodejs programmer. It has been an intense start with the company, new
+domain and technologies. But luckily I&#39;ve enjoyed learning it all, so managed to
+stick with them since then. As the company grown I also got the chance to grow
+in both as a programmer and later as a lead.&lt;/p&gt;
+&lt;p&gt;Currently I&#39;m a team lead for a relatively big team and numerous services.&lt;/p&gt;
+&lt;p&gt;Really enjoy both participating and leading discussions about technical
+challenges that our teams encounter. Like to discover both the hacky and the
+idealistic solutions and their pros and cons.&lt;/p&gt;
+&lt;p&gt;Apart form work I really like to cycle and attend organized bike tours with my
+family.&lt;/p&gt;
+&lt;p&gt;You can find up-to-date information me, on my linkedin profile:
+&lt;a href=&#34;https://www.linkedin.com/in/szabszilagyi/&#34;&gt;https://www.linkedin.com/in/szabszilagyi/&lt;/a&gt;&lt;/p&gt;
+</description>
+		</item>
+		<item>
+			<title>Git global ignore file</title>
+			<link>http://szab.it/posts/git-global-ignore-file/</link>
+			<pubDate>Sat, 11 Feb 2017 11:08:00 +0100</pubDate>
+			<guid isPermaLink="true">http://szab.it/posts/git-global-ignore-file/</guid>
+			<description>&lt;p&gt;the repo and you don&#39;t even want it to be listed in the &lt;code&gt;.gitignore&lt;/code&gt; file of the
+repository.&lt;/p&gt;
+&lt;p&gt;If you have multiple repositories, then there is a nice way to do it per user,
+using the core.excludesFile config property of git.&lt;/p&gt;
+&lt;p&gt;This might be set in your git install already (it wasn&#39;t the case for me, but
+still worth to check it):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;git config --global --get core.excludesFile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If it returns path to a file, then just simply add your ignore pattern to that
+file (just a todo.md line will do the trick, no need for absolute paths).&lt;/p&gt;
+&lt;p&gt;Other way if the property isn&#39;t set, you can set it to any file you would like
+it to be:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;git config --global --add core.excludesFile ~/.myGitHideout
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Source for the solution: &lt;a href=&#34;https://git-scm.com/docs/gitignore&#34;&gt;https://git-scm.com/docs/gitignore&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Originally I&#39;ve posted this on medium as an answer to &lt;a href=&#34;https://medium.com/@dave%5Flunny/exclude-files-from-git-without-committing-changes-to-gitignore-986fa712e78d&#34;&gt;Dave Lunny&#39;s post&lt;/a&gt; in
+2017/02/11.&lt;/p&gt;
+</description>
+		</item>
+	</channel>
+</rss>
