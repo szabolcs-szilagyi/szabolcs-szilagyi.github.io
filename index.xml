@@ -5,7 +5,7 @@
 		<description>Recent content on this&#39;n&#39;that</description>
 		<generator>Hugo 0.62.0 -- gohugo.io</generator>
 		<language>en-us</language>
-		<lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0100</lastBuildDate>
+		<lastBuildDate>Sun, 19 Jan 2020 16:19:00 +0100</lastBuildDate>
 		<atom:link href="https://szab.it/index.xml" rel="self" type="application/rss+xml" />
 		<item>
 			<title>About</title>
@@ -39,6 +39,98 @@ idealistic solutions and their pros and cons.&lt;/p&gt;
 family.&lt;/p&gt;
 &lt;p&gt;You can find up-to-date information me, on my linkedin profile:
 &lt;a href=&#34;https://www.linkedin.com/in/szabszilagyi/&#34;&gt;https://www.linkedin.com/in/szabszilagyi/&lt;/a&gt;&lt;/p&gt;
+</description>
+		</item>
+		<item>
+			<title>Custom keyboard layout in GNU/Linux</title>
+			<link>https://szab.it/posts/custom-keyboard-layout-in-gnu_linux/</link>
+			<pubDate>Sun, 19 Jan 2020 16:19:00 +0100</pubDate>
+			<guid isPermaLink="true">https://szab.it/posts/custom-keyboard-layout-in-gnu_linux/</guid>
+			<description>&lt;p&gt;I generally like to use english keyboard layout for programming, makes it easier
+to get to the special characters. However, since I&#39;m a hungarian, from
+time-to-time would like to use accented characters as well. E.g. &lt;code&gt;á&lt;/code&gt;, &lt;code&gt;é&lt;/code&gt;, &lt;code&gt;ű&lt;/code&gt;, &lt;code&gt;ú&lt;/code&gt;,
+&lt;code&gt;ő&lt;/code&gt;&amp;hellip;&lt;/p&gt;
+&lt;p&gt;In GNU/Linux to change keyboard layout isn&#39;t the easiest to do. As far as I
+remember (from about 10 years ago) in Windows there is a graphical app that
+helps you with this. In GNU/Linux this is all via text files.&lt;/p&gt;
+&lt;p&gt;Here are the steps I&#39;ve done:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;add a new section in the &lt;code&gt;us&lt;/code&gt; symbol file - &lt;code&gt;/usr/share/X11/xkb/symbols/us&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;partial alphanumeric_keys
+xkb_symbols &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;euro-hu&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+
+    include &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;us(basic)&amp;#34;&lt;/span&gt;
+    name&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Group1&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;English (US, with Hun)&amp;#34;&lt;/span&gt;;
+
+    include &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;eurosign(5)&amp;#34;&lt;/span&gt;
+
+    include &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;level3(ralt_switch)&amp;#34;&lt;/span&gt;
+
+    key &amp;lt;AD07&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;            u,            U,        uacute,           Uacute &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;;
+    key &amp;lt;AD03&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;            e,            E,        eacute,           Eacute &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;;
+    key &amp;lt;AD08&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;            i,            I,        iacute,           Iacute &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;;
+    key &amp;lt;AD09&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;            o,            O,        oacute,           Oacute &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;;
+    key &amp;lt;AD10&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;            p,            P,    odiaeresis,       Odiaeresis &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;;
+    key &amp;lt;AC01&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;            a,            A,        aacute,           Aacute &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;;
+    key &amp;lt;AE10&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;            0,   parenright,    odiaeresis,       Odiaeresis &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;; // &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ö Ö
+    key &amp;lt;AE11&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;        minus,   underscore,    udiaeresis,       Udiaeresis &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;; // - _ ü Ü
+    key &amp;lt;AE12&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;        equal,         plus,        oacute,           Oacute &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;; // &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; + ó Ó
+    key &amp;lt;AD11&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;  bracketleft,    braceleft,  odoubleacute,     Odoubleacute &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;; // &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt; ő Ő
+    key &amp;lt;AD12&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; bracketright,   braceright,        uacute,           Uacute &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;; // &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; ú Ú
+    key &amp;lt;AC10&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;    semicolon,        colon,        eacute,           Eacute &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;; // ; : é É
+    key &amp;lt;AC11&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;   apostrophe,     quotedbl,        aacute,           Aacute &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;; // &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; á Á
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    key &amp;lt;BKSL&amp;gt; { [    backslash,          bar,  udoubleacute,     Udoubleacute ] }; // \ | ű Ű
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    key &amp;lt;LSGT&amp;gt; { [    backslash,          bar,  udoubleacute,     Udoubleacute ] }; // \ | í Í
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;};
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;the new keyboard variant should also be noted in the following two files as
+well:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;/usr/share/X11/xkb/rules/base.xml&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;variant&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+          &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;configItem&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;name&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;euro&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;description&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;English (US, euro on 5)&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
+          &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/configItem&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/variant&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;display:block;width:100%;background-color:#3c3d38&#34;&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;variant&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span style=&#34;display:block;width:100%;background-color:#3c3d38&#34;&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;configItem&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span style=&#34;display:block;width:100%;background-color:#3c3d38&#34;&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;name&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;euro-hu&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span style=&#34;display:block;width:100%;background-color:#3c3d38&#34;&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;description&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;English (US, with Hun)&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span style=&#34;display:block;width:100%;background-color:#3c3d38&#34;&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/configItem&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span style=&#34;display:block;width:100%;background-color:#3c3d38&#34;&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/variant&amp;gt;&lt;/span&gt;
+&lt;/span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;variant&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+          &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;configItem&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;name&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;intl&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;description&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;English (US, intl., with dead keys)&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
+          &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/configItem&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/variant&amp;gt;&lt;/span&gt;
+        &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;/usr/share/X11/xkb/rules/base.lst&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;        euro            us: English &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;US, euro on 5&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;display:block;width:100%;background-color:#3c3d38&#34;&gt;        euro-hu         us: English &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;US, with Hun&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;        intl            us: English &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;US, intl., with dead keys&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+        &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart the system and the new keyboard layout should be available - for
+gnome - in the &lt;em&gt;Regional &amp;amp; Language&lt;/em&gt; setting&#39;s &lt;em&gt;Input Sources&lt;/em&gt; section.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If you wish to dig deeper in the topic there is a deeper documentatnion about
+this over on a polish programmer&#39;s site &lt;a href=&#34;https://michal.kosmulski.org/computing/articles/custom-keyboard-layouts-xkb.html&#34;&gt;Michał Kosmulski&#39;s &amp;ldquo;Creating custom
+keyboard layouts for X11 using XKB&amp;rdquo;&lt;/a&gt; article.&lt;/p&gt;
+&lt;p&gt;There is also an option to make keyboard layout modifications with Xmodmap, but
+I&#39;ve had some bad experiences with it. Namely it was slow to load the config, so
+rather do it via XKB. Possible that I was doing something bad with Xmodmap&amp;hellip;
+but we will never no that now. :D&lt;/p&gt;
 </description>
 		</item>
 		<item>
