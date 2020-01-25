@@ -3,23 +3,182 @@
 		<title>Posts on this&#39;n&#39;that</title>
 		<link>https://szab.it/posts/</link>
 		<description>Recent content in Posts on this&#39;n&#39;that</description>
-		<generator>Hugo 0.62.0 -- gohugo.io</generator>
+		<generator>Hugo 0.63.0 -- gohugo.io</generator>
 		<language>en-us</language>
-		<lastBuildDate>Sun, 19 Jan 2020 16:19:00 +0100</lastBuildDate>
+		<lastBuildDate>Sat, 25 Jan 2020 12:35:00 +0100</lastBuildDate>
 		<atom:link href="https://szab.it/posts/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>Bad dependencies and bad interface changes</title>
+			<link>https://szab.it/posts/bad-dependencies-and-bad-interface-changes/</link>
+			<pubDate>Sat, 25 Jan 2020 12:35:00 +0100</pubDate>
+			<guid isPermaLink="true">https://szab.it/posts/bad-dependencies-and-bad-interface-changes/</guid>
+			<description>&lt;p&gt;Recently one of my colleagues has shared his pain about a nodeJS package that we
+use to zip files.&lt;/p&gt;
+&lt;p&gt;His issue was that the library stopped generating the zip files and just hangs.
+Eventually found, that in the project the package in question has been upgraded,
+but with a small issue. The newer version has changed the interface and the same
+method instead of returning the instance it returns a Promise.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Archiver&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;prototype&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;finalize&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;() {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;aborted&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;emit&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;error&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Error(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;finalize: archive was aborted&amp;#39;&lt;/span&gt;));
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;;
+  }
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;finalize&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;emit&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;error&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Error(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;finalize: archive already finalizing&amp;#39;&lt;/span&gt;));
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;;
+  }
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;finalize&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_pending&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_queue&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;idle&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_statQueue&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;idle&lt;/span&gt;()) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_finalize&lt;/span&gt;();
+  }
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;;
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;source:&lt;!-- raw HTML omitted --&gt; &lt;a href=&#34;https://github.com/archiverjs/node-archiver/blob/0.15.1/lib/core.js#L489-L507&#34;&gt;https://github.com/archiverjs/node-archiver/blob/0.15.1/lib/core.js#L489-L507&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Archiver&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;prototype&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;finalize&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;() {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;aborted&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;emit&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;error&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ArchiverError&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ABORTED&amp;#39;&lt;/span&gt;));
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;;
+  }
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;finalize&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;emit&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;error&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ArchiverError&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;FINALIZING&amp;#39;&lt;/span&gt;));
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;;
+  }
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;finalize&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_pending&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_queue&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;idle&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_statQueue&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;idle&lt;/span&gt;()) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_finalize&lt;/span&gt;();
+  }
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;self&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Promise(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;reject&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;errored&lt;/span&gt;;
+
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;self&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_module&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;end&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;() {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;errored&lt;/span&gt;) {
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;();
+      }
+    })
+
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;self&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_module&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;error&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;) {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;errored&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;reject&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;);
+    })
+  })
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;source:&lt;!-- raw HTML omitted --&gt; &lt;a href=&#34;https://github.com/archiverjs/node-archiver/blob/dd7f10d/lib/core.js#L759-L792&#34;&gt;https://github.com/archiverjs/node-archiver/blob/dd7f10d/lib/core.js#L759-L792&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;bad-interface-changes&#34;&gt;Bad interface changes&lt;/h2&gt;
+&lt;p&gt;The painful thing about the new code isn&amp;rsquo;t the fact that it has the same name
+and returns something new, since the upgrade was not minor but &lt;em&gt;major&lt;/em&gt; upgrade.&lt;/p&gt;
+&lt;p&gt;The thing that actually bad in my point of view, that it can return two
+completely different things. Till there is an &lt;code&gt;if&lt;/code&gt; that is being triggered it
+returns the instance of the class, &lt;strong&gt;but&lt;/strong&gt; once those are exhausted it returns a
+&lt;code&gt;Promise&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Icing on the cake that in this case the instance that it returns is a stream,
+that we were just piping, but now at some point it will turn in to a &lt;code&gt;Promise&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Generally it is a good rule of thumb that a method should always return with the
+same type, no matter on the logic inside. (Unless your method is a type selector
+or something like that :D )&lt;/p&gt;
+&lt;p&gt;For the above code I could imagine that the original &lt;code&gt;finalize&lt;/code&gt; could have
+remained the same, always returning a stream. There could have been a new method
+created that would give back a promise and also retaining backward
+compatibility. E.g.: introducing an &lt;code&gt;asPromised&lt;/code&gt; method.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Archiver&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;prototype&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;finalize&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;() {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;aborted&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;emit&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;error&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ArchiverError&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ABORTED&amp;#39;&lt;/span&gt;));
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;;
+  }
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;finalize&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;emit&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;error&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ArchiverError&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;FINALIZING&amp;#39;&lt;/span&gt;));
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;;
+  }
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_state&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;finalize&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_pending&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_queue&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;idle&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_statQueue&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;idle&lt;/span&gt;()) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_finalize&lt;/span&gt;();
+  }
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;;
+};
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;Archiver&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;prototype&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;asPromised&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;() {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;self&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Promise(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;reject&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;errored&lt;/span&gt;;
+
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;self&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_module&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;end&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;() {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;errored&lt;/span&gt;) {
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;();
+      }
+    });
+
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;self&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;_module&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;error&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;) {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;errored&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;;
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;reject&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;);
+    });
+  });
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;bad-dependencies&#34;&gt;Bad dependencies&lt;/h2&gt;
+&lt;p&gt;Now over for the necessity of this npm package.&lt;/p&gt;
+&lt;p&gt;This package is used in NodeJS, so we don&amp;rsquo;t send it to do magic on the
+front-end, but we use it in a controlled environment: a NodeJS app running in a
+Docker container wrapped in a Kubernetes pod.&lt;/p&gt;
+&lt;p&gt;For the docker container we use GNU/Linux, so we can have other programs in
+there as well, that can be found for Linux.&lt;/p&gt;
+&lt;p&gt;The files that we zip are on an NFS drive, so we don&amp;rsquo;t need to stream it, we
+know the location of the file as well.&lt;/p&gt;
+&lt;p&gt;Here comes the idea:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;we have linux &lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt;&lt;/li&gt;
+&lt;li&gt;we have the files/folders accessible &lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt;&lt;/li&gt;
+&lt;li&gt;we could have the &lt;code&gt;zip&lt;/code&gt; program on the system &lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So in effect we could axe a third party npm package and use &lt;a href=&#34;https://nodejs.org/api/child%5Fprocess.html#child%5Fprocess%5Fchild%5Fprocess%5Fexec%5Fcommand%5Foptions%5Fcallback&#34;&gt;child_process.exec&lt;/a&gt;
+or &lt;a href=&#34;https://nodejs.org/api/child%5Fprocess.html#child%5Fprocess%5Fchild%5Fprocess%5Fspawn%5Fcommand%5Fargs%5Foptions&#34;&gt;child_process.spawn&lt;/a&gt; method&amp;rsquo;s from NodeJS itself. The extra 3rd party in this
+case would be the &lt;code&gt;zip&lt;/code&gt; program, but think it is safe to say that command is a
+battle tested, fire hardened program. Which is not likely to cause issues or
+change interface. For me an extra benefit of this approach, that we can offload
+processing from the main app to a separate CPU thread &lt;em&gt;aaaand&lt;/em&gt; we can also use
+&lt;a href=&#34;https://www.gnu.org/software/coreutils/manual/html%5Fnode/nice-invocation.html&#34;&gt;GNU&amp;rsquo;s nice utility&lt;/a&gt; to set the importance of the task. Like this we can also
+ensure that the main app will always have enough CPU time to respond and the zip
+command won&amp;rsquo;t eat it up from the app as well.&lt;/p&gt;
+&lt;p&gt;Gains with this:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;zip&lt;/code&gt; is a reliable program that has and is being tested by millions&lt;/li&gt;
+&lt;li&gt;offload processing from the main app, so it can still serve other requests
+without an issue&lt;/li&gt;
+&lt;li&gt;use built-in NodeJS module that is not likely to change interface and also
+tested by more than a lonely lib from npmjs.org&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;It is good to think through as what is the goal and not just pick an npm package
+off the shelf. The issue you&amp;rsquo;re facing has most likely already been solved.&lt;/p&gt;
+</description>
+		</item>
 		<item>
 			<title>Custom keyboard layout in GNU/Linux</title>
 			<link>https://szab.it/posts/custom-keyboard-layout-in-gnu_linux/</link>
 			<pubDate>Sun, 19 Jan 2020 16:19:00 +0100</pubDate>
 			<guid isPermaLink="true">https://szab.it/posts/custom-keyboard-layout-in-gnu_linux/</guid>
 			<description>&lt;p&gt;I generally like to use english keyboard layout for programming, makes it easier
-to get to the special characters. However, since I&#39;m a hungarian, from
+to get to the special characters. However, since I&amp;rsquo;m a hungarian, from
 time-to-time would like to use accented characters as well. E.g. &lt;code&gt;á&lt;/code&gt;, &lt;code&gt;é&lt;/code&gt;, &lt;code&gt;ű&lt;/code&gt;, &lt;code&gt;ú&lt;/code&gt;,
 &lt;code&gt;ő&lt;/code&gt;&amp;hellip;&lt;/p&gt;
-&lt;p&gt;In GNU/Linux to change keyboard layout isn&#39;t the easiest to do. As far as I
+&lt;p&gt;In GNU/Linux to change keyboard layout isn&amp;rsquo;t the easiest to do. As far as I
 remember (from about 10 years ago) in Windows there is a graphical app that
 helps you with this. In GNU/Linux this is all via text files.&lt;/p&gt;
-&lt;p&gt;Here are the steps I&#39;ve done:&lt;/p&gt;
+&lt;p&gt;Here are the steps I&amp;rsquo;ve done:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;add a new section in the &lt;code&gt;us&lt;/code&gt; symbol file - &lt;code&gt;/usr/share/X11/xkb/symbols/us&lt;/code&gt;:&lt;/p&gt;
@@ -87,14 +246,14 @@ well:&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Restart the system and the new keyboard layout should be available - for
-gnome - in the &lt;em&gt;Regional &amp;amp; Language&lt;/em&gt; setting&#39;s &lt;em&gt;Input Sources&lt;/em&gt; section.&lt;/p&gt;
+gnome - in the &lt;em&gt;Regional &amp;amp; Language&lt;/em&gt; setting&amp;rsquo;s &lt;em&gt;Input Sources&lt;/em&gt; section.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;If you wish to dig deeper in the topic there is a deeper documentatnion about
-this over on a polish programmer&#39;s site &lt;a href=&#34;https://michal.kosmulski.org/computing/articles/custom-keyboard-layouts-xkb.html&#34;&gt;Michał Kosmulski&#39;s &amp;ldquo;Creating custom
+this over on a polish programmer&amp;rsquo;s site &lt;a href=&#34;https://michal.kosmulski.org/computing/articles/custom-keyboard-layouts-xkb.html&#34;&gt;Michał Kosmulski&amp;rsquo;s &amp;ldquo;Creating custom
 keyboard layouts for X11 using XKB&amp;rdquo;&lt;/a&gt; article.&lt;/p&gt;
 &lt;p&gt;There is also an option to make keyboard layout modifications with Xmodmap, but
-I&#39;ve had some bad experiences with it. Namely it was slow to load the config, so
+I&amp;rsquo;ve had some bad experiences with it. Namely it was slow to load the config, so
 rather do it via XKB. Possible that I was doing something bad with Xmodmap&amp;hellip;
 but we will never no that now. :D&lt;/p&gt;
 </description>
@@ -104,20 +263,20 @@ but we will never no that now. :D&lt;/p&gt;
 			<link>https://szab.it/posts/git-global-ignore-file/</link>
 			<pubDate>Sat, 11 Feb 2017 11:08:00 +0100</pubDate>
 			<guid isPermaLink="true">https://szab.it/posts/git-global-ignore-file/</guid>
-			<description>&lt;p&gt;the repo and you don&#39;t even want it to be listed in the &lt;code&gt;.gitignore&lt;/code&gt; file of the
+			<description>&lt;p&gt;the repo and you don&amp;rsquo;t even want it to be listed in the &lt;code&gt;.gitignore&lt;/code&gt; file of the
 repository.&lt;/p&gt;
 &lt;p&gt;If you have multiple repositories, then there is a nice way to do it per user,
 using the core.excludesFile config property of git.&lt;/p&gt;
-&lt;p&gt;This might be set in your git install already (it wasn&#39;t the case for me, but
+&lt;p&gt;This might be set in your git install already (it wasn&amp;rsquo;t the case for me, but
 still worth to check it):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;git config --global --get core.excludesFile
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If it returns path to a file, then just simply add your ignore pattern to that
 file (just a todo.md line will do the trick, no need for absolute paths).&lt;/p&gt;
-&lt;p&gt;Other way if the property isn&#39;t set, you can set it to any file you would like
+&lt;p&gt;Other way if the property isn&amp;rsquo;t set, you can set it to any file you would like
 it to be:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;git config --global --add core.excludesFile ~/.myGitHideout
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Source for the solution: &lt;a href=&#34;https://git-scm.com/docs/gitignore&#34;&gt;https://git-scm.com/docs/gitignore&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Originally I&#39;ve posted this on medium as an answer to &lt;a href=&#34;https://medium.com/@dave%5Flunny/exclude-files-from-git-without-committing-changes-to-gitignore-986fa712e78d&#34;&gt;Dave Lunny&#39;s post&lt;/a&gt; in
+&lt;p&gt;Originally I&amp;rsquo;ve posted this on medium as an answer to &lt;a href=&#34;https://medium.com/@dave%5Flunny/exclude-files-from-git-without-committing-changes-to-gitignore-986fa712e78d&#34;&gt;Dave Lunny&amp;rsquo;s post&lt;/a&gt; in
 2017/02/11.&lt;/p&gt;
 </description>
 		</item>

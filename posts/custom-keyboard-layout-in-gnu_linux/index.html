@@ -5,16 +5,16 @@
   <title>Custom keyboard layout in GNU/Linux | this&#39;n&#39;that</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="description" content="I generally like to use english keyboard layout for programming, makes it easier to get to the special characters. However, since I&#39;m a hungarian, from time-to-time would like to use accented characters as well. E.g. á, é, ű, ú, ő&hellip;
-In GNU/Linux to change keyboard layout isn&#39;t the easiest to do. As far as I remember (from about 10 years ago) in Windows there is a graphical app that helps you with this." />
+  <meta name="description" content="I generally like to use english keyboard layout for programming, makes it easier to get to the special characters. However, since I&rsquo;m a hungarian, from time-to-time would like to use accented characters as well. E.g. á, é, ű, ú, ő&hellip;
+In GNU/Linux to change keyboard layout isn&rsquo;t the easiest to do. As far as I remember (from about 10 years ago) in Windows there is a graphical app that helps you with this." />
   <meta name="author" content="" />
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.63.0" />
   <link href="/index.xml" rel="alternate" type="application/rss+xml" title="this&#39;n&#39;that Feed" />
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="/style-compat.3b4c1c0e1409a3519991e0e9c30ec8480a88f23885a0beb2a2ca30ece5c7d42c.css" />
+  <link rel="stylesheet" href="/style-compat.0a34ff675d25c2b1a4770ded078535a8cc6cf01bfacd81f778d6afe867b248ed.css" />
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="/style.6bf00dd6076f8be858bee3ba1ac6937e5e78a15eb5a11f6822a6e9199d270703.css" />
+  <link rel="stylesheet" href="/style.f5dcbf4dd08699b7669405f5790bcc67b9bf37343705215bf016e26f33e744f6.css" />
   <!--<![endif]-->
   <script defer src="/script.9df38729991a6ec08d83b60514e841529cebd5ccc800cf8e1f98fb63e73aaa73.js"></script>
   <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101231825);</script>
@@ -72,13 +72,13 @@ In GNU/Linux to change keyboard layout isn&#39;t the easiest to do. As far as I 
   </div>
   <div>
     <p>I generally like to use english keyboard layout for programming, makes it easier
-to get to the special characters. However, since I'm a hungarian, from
+to get to the special characters. However, since I&rsquo;m a hungarian, from
 time-to-time would like to use accented characters as well. E.g. <code>á</code>, <code>é</code>, <code>ű</code>, <code>ú</code>,
 <code>ő</code>&hellip;</p>
-<p>In GNU/Linux to change keyboard layout isn't the easiest to do. As far as I
+<p>In GNU/Linux to change keyboard layout isn&rsquo;t the easiest to do. As far as I
 remember (from about 10 years ago) in Windows there is a graphical app that
 helps you with this. In GNU/Linux this is all via text files.</p>
-<p>Here are the steps I've done:</p>
+<p>Here are the steps I&rsquo;ve done:</p>
 <ol>
 <li>
 <p>add a new section in the <code>us</code> symbol file - <code>/usr/share/X11/xkb/symbols/us</code>:</p>
@@ -146,14 +146,14 @@ well:</p>
 </li>
 <li>
 <p>Restart the system and the new keyboard layout should be available - for
-gnome - in the <em>Regional &amp; Language</em> setting's <em>Input Sources</em> section.</p>
+gnome - in the <em>Regional &amp; Language</em> setting&rsquo;s <em>Input Sources</em> section.</p>
 </li>
 </ol>
 <p>If you wish to dig deeper in the topic there is a deeper documentatnion about
-this over on a polish programmer's site <a href="https://michal.kosmulski.org/computing/articles/custom-keyboard-layouts-xkb.html">Michał Kosmulski's &ldquo;Creating custom
+this over on a polish programmer&rsquo;s site <a href="https://michal.kosmulski.org/computing/articles/custom-keyboard-layouts-xkb.html">Michał Kosmulski&rsquo;s &ldquo;Creating custom
 keyboard layouts for X11 using XKB&rdquo;</a> article.</p>
 <p>There is also an option to make keyboard layout modifications with Xmodmap, but
-I've had some bad experiences with it. Namely it was slow to load the config, so
+I&rsquo;ve had some bad experiences with it. Namely it was slow to load the config, so
 rather do it via XKB. Possible that I was doing something bad with Xmodmap&hellip;
 but we will never no that now. :D</p>
 

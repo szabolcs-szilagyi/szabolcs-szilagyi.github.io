@@ -5,18 +5,18 @@
   <title>Git global ignore file | this&#39;n&#39;that</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="description" content="the repo and you don&#39;t even want it to be listed in the .gitignore file of the repository.
+  <meta name="description" content="the repo and you don&rsquo;t even want it to be listed in the .gitignore file of the repository.
 If you have multiple repositories, then there is a nice way to do it per user, using the core.excludesFile config property of git.
-This might be set in your git install already (it wasn&#39;t the case for me, but still worth to check it):
+This might be set in your git install already (it wasn&rsquo;t the case for me, but still worth to check it):
 git config --global --get core.excludesFile If it returns path to a file, then just simply add your ignore pattern to that file (just a todo." />
   <meta name="author" content="" />
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.63.0" />
   <link href="/index.xml" rel="alternate" type="application/rss+xml" title="this&#39;n&#39;that Feed" />
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="/style-compat.3b4c1c0e1409a3519991e0e9c30ec8480a88f23885a0beb2a2ca30ece5c7d42c.css" />
+  <link rel="stylesheet" href="/style-compat.0a34ff675d25c2b1a4770ded078535a8cc6cf01bfacd81f778d6afe867b248ed.css" />
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="/style.6bf00dd6076f8be858bee3ba1ac6937e5e78a15eb5a11f6822a6e9199d270703.css" />
+  <link rel="stylesheet" href="/style.f5dcbf4dd08699b7669405f5790bcc67b9bf37343705215bf016e26f33e744f6.css" />
   <!--<![endif]-->
   <script defer src="/script.9df38729991a6ec08d83b60514e841529cebd5ccc800cf8e1f98fb63e73aaa73.js"></script>
   <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101231825);</script>
@@ -73,20 +73,20 @@ git config --global --get core.excludesFile If it returns path to a file, then j
 
   </div>
   <div>
-    <p>the repo and you don't even want it to be listed in the <code>.gitignore</code> file of the
+    <p>the repo and you don&rsquo;t even want it to be listed in the <code>.gitignore</code> file of the
 repository.</p>
 <p>If you have multiple repositories, then there is a nice way to do it per user,
 using the core.excludesFile config property of git.</p>
-<p>This might be set in your git install already (it wasn't the case for me, but
+<p>This might be set in your git install already (it wasn&rsquo;t the case for me, but
 still worth to check it):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git config --global --get core.excludesFile
 </code></pre></div><p>If it returns path to a file, then just simply add your ignore pattern to that
 file (just a todo.md line will do the trick, no need for absolute paths).</p>
-<p>Other way if the property isn't set, you can set it to any file you would like
+<p>Other way if the property isn&rsquo;t set, you can set it to any file you would like
 it to be:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git config --global --add core.excludesFile ~/.myGitHideout
 </code></pre></div><p>Source for the solution: <a href="https://git-scm.com/docs/gitignore">https://git-scm.com/docs/gitignore</a></p>
-<p>Originally I've posted this on medium as an answer to <a href="https://medium.com/@dave%5Flunny/exclude-files-from-git-without-committing-changes-to-gitignore-986fa712e78d">Dave Lunny's post</a> in
+<p>Originally I&rsquo;ve posted this on medium as an answer to <a href="https://medium.com/@dave%5Flunny/exclude-files-from-git-without-committing-changes-to-gitignore-986fa712e78d">Dave Lunny&rsquo;s post</a> in
 2017/02/11.</p>
 
   </div>

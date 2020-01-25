@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" />
+  <title>Bad dependencies and bad interface changes | this&#39;n&#39;that</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="Recently one of my colleagues has shared his pain about a nodeJS package that we use to zip files.
+His issue was that the library stopped generating the zip files and just hangs. Eventually found, that in the project the package in question has been upgraded, but with a small issue. The newer version has changed the interface and the same method instead of returning the instance it returns a Promise." />
+  <meta name="author" content="" />
+  <meta name="generator" content="Hugo 0.63.0" />
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="this&#39;n&#39;that Feed" />
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/style-compat.0a34ff675d25c2b1a4770ded078535a8cc6cf01bfacd81f778d6afe867b248ed.css" />
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/style.f5dcbf4dd08699b7669405f5790bcc67b9bf37343705215bf016e26f33e744f6.css" />
+  <!--<![endif]-->
+  <script defer src="/script.9df38729991a6ec08d83b60514e841529cebd5ccc800cf8e1f98fb63e73aaa73.js"></script>
+  <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101231825);</script>
+  <script async src="//static.getclicky.com/js"></script>
+</head>
+<body>
+<div class="pure-g">
+  <div class="pure-u-1-24 pure-u-md-5-24"></div>
+  <div class="pure-u-22-24 pure-u-md-14-24">
+  
+<div class="navigation">
+  <div class="navigation-header clearfix">
+    <div class="pure-menu pure-menu-horizontal">
+      <a class="pure-menu-heading pure-menu-link" href="/">
+        this&#39;n&#39;that
+      </a>
+    </div>
+  </div>
+  <div class="navigation-content">
+    <div class="pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item" title="All posts">
+          <a  class="pure-menu-link" href="/posts/">Posts</a>
+        </li>
+        <li class="pure-menu-item" title="All tags">
+          <a  class="pure-menu-link" href="/tags/">Tags</a>
+        </li>
+        <li class="pure-menu-item" title="About">
+          <a  class="pure-menu-link" href="/about/about/">About</a>
+        </li>
+        <li class="pure-menu-item" title="$ who">
+          <a  class="pure-menu-link" href="/about/who/">$ who</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+  
+<div>
+  <div>
+    <h2 class="post-title">
+      
+      Bad dependencies and bad interface changes
+    </h2>
+    
+<div class="post-meta">
+  <span>Date</span> &#x5b;
+    <time datetime="2020-01-25T12:35:00&#43;01:00">
+      2020-01-25T12:35:00&#43;01:00
+    </time>
+  &#x5d;
+</div>
+
+  </div>
+  <div>
+    <p>Recently one of my colleagues has shared his pain about a nodeJS package that we
+use to zip files.</p>
+<p>His issue was that the library stopped generating the zip files and just hangs.
+Eventually found, that in the project the package in question has been upgraded,
+but with a small issue. The newer version has changed the interface and the same
+method instead of returning the instance it returns a Promise.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">Archiver</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">aborted</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;finalize: archive was aborted&#39;</span>));
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+  }
+
+  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;finalize: archive already finalizing&#39;</span>));
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+  }
+
+  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+
+  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_pending</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_queue</span>.<span style="color:#a6e22e">idle</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_statQueue</span>.<span style="color:#a6e22e">idle</span>()) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_finalize</span>();
+  }
+
+  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+};
+</code></pre></div><!-- raw HTML omitted -->
+<p><!-- raw HTML omitted -->source:<!-- raw HTML omitted --> <a href="https://github.com/archiverjs/node-archiver/blob/0.15.1/lib/core.js#L489-L507">https://github.com/archiverjs/node-archiver/blob/0.15.1/lib/core.js#L489-L507</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">Archiver</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">aborted</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ArchiverError</span>(<span style="color:#e6db74">&#39;ABORTED&#39;</span>));
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+  }
+
+  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ArchiverError</span>(<span style="color:#e6db74">&#39;FINALIZING&#39;</span>));
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+  }
+
+  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+
+  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_pending</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_queue</span>.<span style="color:#a6e22e">idle</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_statQueue</span>.<span style="color:#a6e22e">idle</span>()) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_finalize</span>();
+  }
+
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">self</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
+
+  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">errored</span>;
+
+    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">_module</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;end&#39;</span>, <span style="color:#66d9ef">function</span>() {
+      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">errored</span>) {
+        <span style="color:#a6e22e">resolve</span>();
+      }
+    })
+
+    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">_module</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">err</span>) {
+      <span style="color:#a6e22e">errored</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+      <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
+    })
+  })
+};
+</code></pre></div><!-- raw HTML omitted -->
+<p><!-- raw HTML omitted -->source:<!-- raw HTML omitted --> <a href="https://github.com/archiverjs/node-archiver/blob/dd7f10d/lib/core.js#L759-L792">https://github.com/archiverjs/node-archiver/blob/dd7f10d/lib/core.js#L759-L792</a></p>
+<h2 id="bad-interface-changes">Bad interface changes</h2>
+<p>The painful thing about the new code isn&rsquo;t the fact that it has the same name
+and returns something new, since the upgrade was not minor but <em>major</em> upgrade.</p>
+<p>The thing that actually bad in my point of view, that it can return two
+completely different things. Till there is an <code>if</code> that is being triggered it
+returns the instance of the class, <strong>but</strong> once those are exhausted it returns a
+<code>Promise</code>.</p>
+<p>Icing on the cake that in this case the instance that it returns is a stream,
+that we were just piping, but now at some point it will turn in to a <code>Promise</code>.</p>
+<p>Generally it is a good rule of thumb that a method should always return with the
+same type, no matter on the logic inside. (Unless your method is a type selector
+or something like that :D )</p>
+<p>For the above code I could imagine that the original <code>finalize</code> could have
+remained the same, always returning a stream. There could have been a new method
+created that would give back a promise and also retaining backward
+compatibility. E.g.: introducing an <code>asPromised</code> method.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">Archiver</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">aborted</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ArchiverError</span>(<span style="color:#e6db74">&#39;ABORTED&#39;</span>));
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+  }
+
+  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ArchiverError</span>(<span style="color:#e6db74">&#39;FINALIZING&#39;</span>));
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+  }
+
+  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+
+  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_pending</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_queue</span>.<span style="color:#a6e22e">idle</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_statQueue</span>.<span style="color:#a6e22e">idle</span>()) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_finalize</span>();
+  }
+
+  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+};
+
+<span style="color:#a6e22e">Archiver</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">asPromised</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">self</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
+
+  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">errored</span>;
+
+    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">_module</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;end&#39;</span>, <span style="color:#66d9ef">function</span>() {
+      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">errored</span>) {
+        <span style="color:#a6e22e">resolve</span>();
+      }
+    });
+
+    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">_module</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">err</span>) {
+      <span style="color:#a6e22e">errored</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+      <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
+    });
+  });
+}
+</code></pre></div><h2 id="bad-dependencies">Bad dependencies</h2>
+<p>Now over for the necessity of this npm package.</p>
+<p>This package is used in NodeJS, so we don&rsquo;t send it to do magic on the
+front-end, but we use it in a controlled environment: a NodeJS app running in a
+Docker container wrapped in a Kubernetes pod.</p>
+<p>For the docker container we use GNU/Linux, so we can have other programs in
+there as well, that can be found for Linux.</p>
+<p>The files that we zip are on an NFS drive, so we don&rsquo;t need to stream it, we
+know the location of the file as well.</p>
+<p>Here comes the idea:</p>
+<ul>
+<li>we have linux <input checked="" disabled="" type="checkbox"></li>
+<li>we have the files/folders accessible <input checked="" disabled="" type="checkbox"></li>
+<li>we could have the <code>zip</code> program on the system <input checked="" disabled="" type="checkbox"></li>
+</ul>
+<p>So in effect we could axe a third party npm package and use <a href="https://nodejs.org/api/child%5Fprocess.html#child%5Fprocess%5Fchild%5Fprocess%5Fexec%5Fcommand%5Foptions%5Fcallback">child_process.exec</a>
+or <a href="https://nodejs.org/api/child%5Fprocess.html#child%5Fprocess%5Fchild%5Fprocess%5Fspawn%5Fcommand%5Fargs%5Foptions">child_process.spawn</a> method&rsquo;s from NodeJS itself. The extra 3rd party in this
+case would be the <code>zip</code> program, but think it is safe to say that command is a
+battle tested, fire hardened program. Which is not likely to cause issues or
+change interface. For me an extra benefit of this approach, that we can offload
+processing from the main app to a separate CPU thread <em>aaaand</em> we can also use
+<a href="https://www.gnu.org/software/coreutils/manual/html%5Fnode/nice-invocation.html">GNU&rsquo;s nice utility</a> to set the importance of the task. Like this we can also
+ensure that the main app will always have enough CPU time to respond and the zip
+command won&rsquo;t eat it up from the app as well.</p>
+<p>Gains with this:</p>
+<ul>
+<li><code>zip</code> is a reliable program that has and is being tested by millions</li>
+<li>offload processing from the main app, so it can still serve other requests
+without an issue</li>
+<li>use built-in NodeJS module that is not likely to change interface and also
+tested by more than a lonely lib from npmjs.org</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>It is good to think through as what is the goal and not just pick an npm package
+off the shelf. The issue you&rsquo;re facing has most likely already been solved.</p>
+
+  </div>
+</div>
+  <div class="footer">
+  <div class="pure-menu pure-menu-horizontal">
+    <ul class="pure-menu-list">
+      <li class="pure-menu-item" title="github profile">
+        <a class="pure-menu-link" href="https://github.com/szabolcs-szilagyi/">GitHub</a>
+      </li>
+      <li class="pure-menu-item" title="linked in profile">
+        <a class="pure-menu-link" href="https://www.linkedin.com/in/szabszilagyi/">LinkedIn</a>
+      </li>
+      <li class="pure-menu-item" title="RSS Feed">
+        <a href="/index.xml" class="pure-menu-link">RSS</a>
+      </li>
+      <li class="pure-menu-item fix-cursor-pointer" title="Go to top">
+        <a class="pure-menu-link" id="btn-gototop">
+          <span class="fix-placement-up">&#x21e7;&#xfe0e;</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+  </div>
+  <div class="pure-u-1-24 pure-u-md-5-24"></div>
+</div>
+</body>
+</html>
