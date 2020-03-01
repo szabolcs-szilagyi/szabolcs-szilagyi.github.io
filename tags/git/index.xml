@@ -1,0 +1,33 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>git on this&#39;n&#39;that</title>
+		<link>https://szab.it/tags/git/</link>
+		<description>Recent content in git on this&#39;n&#39;that</description>
+		<generator>Hugo 0.65.3 -- gohugo.io</generator>
+		<language>en-us</language>
+		<lastBuildDate>Sat, 11 Feb 2017 11:08:00 +0100</lastBuildDate>
+		<atom:link href="https://szab.it/tags/git/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>Git global ignore file</title>
+			<link>https://szab.it/posts/git-global-ignore-file/</link>
+			<pubDate>Sat, 11 Feb 2017 11:08:00 +0100</pubDate>
+			<guid isPermaLink="true">https://szab.it/posts/git-global-ignore-file/</guid>
+			<description>&lt;p&gt;the repo and you don&amp;rsquo;t even want it to be listed in the &lt;code&gt;.gitignore&lt;/code&gt; file of the
+repository.&lt;/p&gt;
+&lt;p&gt;If you have multiple repositories, then there is a nice way to do it per user,
+using the core.excludesFile config property of git.&lt;/p&gt;
+&lt;p&gt;This might be set in your git install already (it wasn&amp;rsquo;t the case for me, but
+still worth to check it):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;git config --global --get core.excludesFile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If it returns path to a file, then just simply add your ignore pattern to that
+file (just a todo.md line will do the trick, no need for absolute paths).&lt;/p&gt;
+&lt;p&gt;Other way if the property isn&amp;rsquo;t set, you can set it to any file you would like
+it to be:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;git config --global --add core.excludesFile ~/.myGitHideout
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Source for the solution: &lt;a href=&#34;https://git-scm.com/docs/gitignore&#34;&gt;https://git-scm.com/docs/gitignore&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Originally I&amp;rsquo;ve posted this on medium as an answer to &lt;a href=&#34;https://medium.com/@dave%5Flunny/exclude-files-from-git-without-committing-changes-to-gitignore-986fa712e78d&#34;&gt;Dave Lunny&amp;rsquo;s post&lt;/a&gt; in
+2017/02/11.&lt;/p&gt;
+</description>
+		</item>
+	</channel>
+</rss>

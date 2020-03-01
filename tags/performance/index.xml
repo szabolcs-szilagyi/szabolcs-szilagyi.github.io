@@ -1,0 +1,115 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>performance on this&#39;n&#39;that</title>
+		<link>https://szab.it/tags/performance/</link>
+		<description>Recent content in performance on this&#39;n&#39;that</description>
+		<generator>Hugo 0.65.3 -- gohugo.io</generator>
+		<language>en-us</language>
+		<lastBuildDate>Sun, 01 Mar 2020 09:22:00 +0100</lastBuildDate>
+		<atom:link href="https://szab.it/tags/performance/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>MongoDB deprecating &#34;count&#34;</title>
+			<link>https://szab.it/posts/mongodb-deprecating-count/</link>
+			<pubDate>Sun, 01 Mar 2020 09:22:00 +0100</pubDate>
+			<guid isPermaLink="true">https://szab.it/posts/mongodb-deprecating-count/</guid>
+			<description>&lt;p&gt;Prior warning: this post may turn into a rant.&lt;/p&gt;
+&lt;h2 id=&#34;prologue&#34;&gt;Prologue&lt;/h2&gt;
+&lt;p&gt;In the second half of 2019 at my company we have got an expected notice from our
+MongoDB provider, Atlas.&lt;/p&gt;
+&lt;p&gt;The notice was about the usual pain that they do every now and then: force
+upgrade for old versions. At that time we were running MongoDB v3.4 and so now
+we got the notice to ensure that we have a driver that supports v3.6 as all the
+clusters will be upgraded on the end of January 2020.&lt;/p&gt;
+&lt;p&gt;All is well we look at these upgrades as a necessary evil, that causes pain in
+short therm, but will bring benefits in the long run. The benefits with newer
+MongoDB versions was the performance. We have tested some of our heavier
+queries - with which we already have had issues in production - and behold they
+become 10 times faster. (We were comparing MongoDB v3.4 with v4.2 at that time)&lt;/p&gt;
+&lt;p&gt;We thought cool 10x the power! Lets do this!&lt;/p&gt;
+&lt;p&gt;So we have started our long journey of upgrades, tests, fixes and further
+upgrades and tests, tears and cries, laughter and anger.&lt;/p&gt;
+&lt;p&gt;Once we were satisfied with the upgrade we have deployed our first services,
+that was already in need of that performance boost. Cool we thought, surely we
+gonna have some co-workers coming to us saying: Boys don&amp;rsquo;t know what has
+happened, but the service is blazing fast!&lt;/p&gt;
+&lt;p&gt;Man, we were wrong! Surely the queries looked fast, but there was a tiny bit of
+issue: some of our calls to the database started to timeout. Worst of it those
+calls were actually fast previously. As an icing on the cake this didn&amp;rsquo;t come to
+our attention straightaway, but only a week later, when another new service
+wanted to sync data.&lt;/p&gt;
+&lt;p&gt;Once noted, we jumped into debugging. Looking at the database&amp;rsquo;s real time
+operations (&lt;a href=&#34;https://docs.mongodb.com/manual/reference/method/db.currentOp/&#34;&gt;&lt;code&gt;db.currentOp()&lt;/code&gt;&lt;/a&gt;) we were seeing &lt;code&gt;aggregation&lt;/code&gt; calls on the biggest
+collection being called. As we didn&amp;rsquo;t recall to have used such heavy
+aggregations on that collection, we searched through our code base to find what
+could issue this command.&lt;/p&gt;
+&lt;p&gt;We have managed to find a couple of places where we have used aggregation, but
+none of them fitted the match that we seen in the operations list.&lt;/p&gt;
+&lt;p&gt;Eventually one team member suggested that that aggregation is the way MongoDB
+does the count. I couldn&amp;rsquo;t believe it at first, but then we have read a bit more
+about the new &lt;a href=&#34;https://docs.mongodb.com/manual/reference/method/db.collection.countDocuments/&#34;&gt;&lt;code&gt;countDocuments&lt;/code&gt;&lt;/a&gt; method that was &lt;!-- raw HTML omitted --&gt;suggested method by the
+documentation&lt;!-- raw HTML omitted --&gt; to use instead of the &lt;a href=&#34;https://docs.mongodb.com/manual/reference/method/db.collection.countDocuments/&#34;&gt;&lt;code&gt;count&lt;/code&gt;&lt;/a&gt; and turned out that it is indeed
+slower as it is more accurate.&lt;/p&gt;
+&lt;p&gt;From MongoDB&amp;rsquo;s JIRA ticket &lt;a href=&#34;https://jira.mongodb.org/browse/NODE-1638&#34;&gt;NODE-1638&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;count has been deprecated for a number of reasons. First, and foremost, the
+existing count command could not be run within transactions, so an alternative
+approach needed to be taken. Secondarily, the count command in most cases was
+not accurate. We have replaced count with countDocuments and
+estimatedDocumentCount. Please use estimatedDocumentCount for the performance
+you are looking for, and parity with the original count.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So the reasons against &lt;code&gt;count&lt;/code&gt;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;not giving accurate results and&lt;/li&gt;
+&lt;li&gt;not transaction friendly&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;From my point of view those two are not really reasons to deprecate a core
+command, which think is quite needed.&lt;/p&gt;
+&lt;h2 id=&#34;count-is-not-accurate&#34;&gt;&lt;code&gt;count&lt;/code&gt; is not accurate&lt;/h2&gt;
+&lt;p&gt;Okay it isn&amp;rsquo;t, but honestly what was accurate in MongoDB before? Like with
+iterating a &lt;code&gt;cursor&lt;/code&gt; (with mongoose &lt;code&gt;stream&lt;/code&gt;), you could easily miss documents or
+see others twice in the process. Unless you set read preference to snapshot, but
+even then if the process is long running and you have inserts in the mean time,
+then you won&amp;rsquo;t see the new documents, so it is still a &lt;em&gt;meh&lt;/em&gt; solution.&lt;/p&gt;
+&lt;p&gt;For processing all the data in the database, even the ones that didn&amp;rsquo;t exist
+when we started the process, we were using a practice where we sorted the &lt;code&gt;_id&lt;/code&gt; in
+ascending order, retrieving data in batches and using the last _id in the list
+with a greater than filter: &lt;code&gt;{ _id: { $gt: lastId } }&lt;/code&gt;. Like this we could
+processes all the documents without duplicates and if there were new documents
+created while the process run, no problem, still got them.&lt;/p&gt;
+&lt;p&gt;Now in case of the count, so far I haven&amp;rsquo;t seen a case where would have needed
+pinpoint accuracy. I can imagine that there are case where one needs it, but
+then just like with the streaming above there is a solution for it. The solution
+in this case comes in aggregation and I&amp;rsquo;m sure that before the &lt;code&gt;countDocuments&lt;/code&gt;
+command developers were using it to get the accurate count that they have
+needed.&lt;/p&gt;
+&lt;p&gt;It is nice that now there is a method in mongo, that can give you the accurate
+count, without fiddling around with aggregation. It is convenient for those who
+need it. Still in my point it is not a reason to deprecate &lt;code&gt;count&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;not-transaction-safe&#34;&gt;Not transaction safe&lt;/h2&gt;
+&lt;p&gt;Well okay. It isn&amp;rsquo;t. Don&amp;rsquo;t know, never tried it. As I tend to work with
+microservices, I never missed or wanted to use transactions. It is hard to
+implement across services. My preference for data consistency is to make
+operations idempotent and so it is safe to put them into job queues, that
+guarantee to run it at least once.&lt;/p&gt;
+&lt;p&gt;Just to emphasize it: I do respect that in some cases transactions could be the
+best or only solutions and it is nice that &lt;code&gt;countDocuments&lt;/code&gt; is transaction safe.
+Just still not a reason to deprecate &lt;code&gt;count&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;solution&#34;&gt;Solution&lt;/h2&gt;
+&lt;p&gt;So &lt;code&gt;count&lt;/code&gt; has been marked as deprecated in MongoDB v4.0, it is still well and
+alive in v4.2. Since the two replacement suggested to be used instead:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;countDocuments&lt;/code&gt; - way too slow for us&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;estimatedDocumentCount&lt;/code&gt; - cannot provide a query&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;are both unsuitable for us, we have reverted all our calls to use the poor old
+&lt;code&gt;count&lt;/code&gt; method and we have accepted that our terminal will be showing the
+deprecation warnings for a while.&lt;/p&gt;
+&lt;p&gt;For now we hope that they won&amp;rsquo;t remove it or they will improve the performance
+of the new &lt;code&gt;countDocuments&lt;/code&gt; method to be on pair with it.&lt;/p&gt;
+&lt;h2 id=&#34;finale&#34;&gt;Finale&lt;/h2&gt;
+&lt;p&gt;Okay, this has indeed become a rant, but you have been warned. :D Sorry.&lt;/p&gt;
+</description>
+		</item>
+	</channel>
+</rss>

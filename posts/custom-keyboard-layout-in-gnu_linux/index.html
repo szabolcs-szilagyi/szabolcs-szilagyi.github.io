@@ -8,13 +8,13 @@
   <meta name="description" content="I generally like to use english keyboard layout for programming, makes it easier to get to the special characters. However, since I&rsquo;m a hungarian, from time-to-time would like to use accented characters as well. E.g. á, é, ű, ú, ő&hellip;
 In GNU/Linux to change keyboard layout isn&rsquo;t the easiest to do. As far as I remember (from about 10 years ago) in Windows there is a graphical app that helps you with this." />
   <meta name="author" content="" />
-  <meta name="generator" content="Hugo 0.63.0" />
+  <meta name="generator" content="Hugo 0.65.3" />
   <link href="/index.xml" rel="alternate" type="application/rss+xml" title="this&#39;n&#39;that Feed" />
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="/style-compat.0a34ff675d25c2b1a4770ded078535a8cc6cf01bfacd81f778d6afe867b248ed.css" />
+  <link rel="stylesheet" href="/style-compat.18854265a818d0eba8e44a33b636016343ee1980cb37565042864f57e53a611c.css" />
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="/style.f5dcbf4dd08699b7669405f5790bcc67b9bf37343705215bf016e26f33e744f6.css" />
+  <link rel="stylesheet" href="/style.730b32910bfb669086b30a9d93000643f054cd3254e0fb3e53ac901d89098fa0.css" />
   <!--<![endif]-->
   <script defer src="/script.9df38729991a6ec08d83b60514e841529cebd5ccc800cf8e1f98fb63e73aaa73.js"></script>
   <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101231825);</script>
@@ -86,7 +86,7 @@ helps you with this. In GNU/Linux this is all via text files.</p>
 xkb_symbols <span style="color:#e6db74">&#34;euro-hu&#34;</span> <span style="color:#f92672">{</span>
 
     include <span style="color:#e6db74">&#34;us(basic)&#34;</span>
-    name<span style="color:#f92672">[</span>Group1<span style="color:#f92672">]</span><span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;English (US, with Hun)&#34;</span>;
+    name<span style="color:#f92672">[</span>Group1<span style="color:#f92672">]=</span> <span style="color:#e6db74">&#34;English (US, with Hun)&#34;</span>;
 
     include <span style="color:#e6db74">&#34;eurosign(5)&#34;</span>
 
@@ -104,7 +104,7 @@ xkb_symbols <span style="color:#e6db74">&#34;euro-hu&#34;</span> <span style="co
     key &lt;AD11&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>  bracketleft,    braceleft,  odoubleacute,     Odoubleacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // <span style="color:#f92672">[</span> <span style="color:#f92672">{</span> ő Ő
     key &lt;AD12&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span> bracketright,   braceright,        uacute,           Uacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // <span style="color:#f92672">]</span> <span style="color:#f92672">}</span> ú Ú
     key &lt;AC10&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>    semicolon,        colon,        eacute,           Eacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // ; : é É
-    key &lt;AC11&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>   apostrophe,     quotedbl,        aacute,           Aacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // <span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> á Á
+    key &lt;AC11&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>   apostrophe,     quotedbl,        aacute,           Aacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // <span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#e6db74">&#34; á Á
 </span><span style="color:#e6db74">    key &lt;BKSL&gt; { [    backslash,          bar,  udoubleacute,     Udoubleacute ] }; // \ | ű Ű
 </span><span style="color:#e6db74">    key &lt;LSGT&gt; { [    backslash,          bar,  udoubleacute,     Udoubleacute ] }; // \ | í Í
 </span><span style="color:#e6db74">};
@@ -115,22 +115,22 @@ well:</p>
 <ol>
 <li>
 <p><code>/usr/share/X11/xkb/rules/base.xml</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">        <span style="color:#f92672">&lt;variant</span><span style="color:#f92672">&gt;</span>
-          <span style="color:#f92672">&lt;configItem</span><span style="color:#f92672">&gt;</span>
-            <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>euro<span style="color:#f92672">&lt;/name&gt;</span>
-            <span style="color:#f92672">&lt;description</span><span style="color:#f92672">&gt;</span>English (US, euro on 5)<span style="color:#f92672">&lt;/description&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">        <span style="color:#f92672">&lt;variant&gt;</span>
+          <span style="color:#f92672">&lt;configItem&gt;</span>
+            <span style="color:#f92672">&lt;name&gt;</span>euro<span style="color:#f92672">&lt;/name&gt;</span>
+            <span style="color:#f92672">&lt;description&gt;</span>English (US, euro on 5)<span style="color:#f92672">&lt;/description&gt;</span>
           <span style="color:#f92672">&lt;/configItem&gt;</span>
         <span style="color:#f92672">&lt;/variant&gt;</span>
-<span style="display:block;width:100%;background-color:#3c3d38">        <span style="color:#f92672">&lt;variant</span><span style="color:#f92672">&gt;</span>
-</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#f92672">&lt;configItem</span><span style="color:#f92672">&gt;</span>
-</span><span style="display:block;width:100%;background-color:#3c3d38">            <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>euro-hu<span style="color:#f92672">&lt;/name&gt;</span>
-</span><span style="display:block;width:100%;background-color:#3c3d38">            <span style="color:#f92672">&lt;description</span><span style="color:#f92672">&gt;</span>English (US, with Hun)<span style="color:#f92672">&lt;/description&gt;</span>
+<span style="display:block;width:100%;background-color:#3c3d38">        <span style="color:#f92672">&lt;variant&gt;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#f92672">&lt;configItem&gt;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">            <span style="color:#f92672">&lt;name&gt;</span>euro-hu<span style="color:#f92672">&lt;/name&gt;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">            <span style="color:#f92672">&lt;description&gt;</span>English (US, with Hun)<span style="color:#f92672">&lt;/description&gt;</span>
 </span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#f92672">&lt;/configItem&gt;</span>
 </span><span style="display:block;width:100%;background-color:#3c3d38">        <span style="color:#f92672">&lt;/variant&gt;</span>
-</span>        <span style="color:#f92672">&lt;variant</span><span style="color:#f92672">&gt;</span>
-          <span style="color:#f92672">&lt;configItem</span><span style="color:#f92672">&gt;</span>
-            <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>intl<span style="color:#f92672">&lt;/name&gt;</span>
-            <span style="color:#f92672">&lt;description</span><span style="color:#f92672">&gt;</span>English (US, intl., with dead keys)<span style="color:#f92672">&lt;/description&gt;</span>
+</span>        <span style="color:#f92672">&lt;variant&gt;</span>
+          <span style="color:#f92672">&lt;configItem&gt;</span>
+            <span style="color:#f92672">&lt;name&gt;</span>intl<span style="color:#f92672">&lt;/name&gt;</span>
+            <span style="color:#f92672">&lt;description&gt;</span>English (US, intl., with dead keys)<span style="color:#f92672">&lt;/description&gt;</span>
           <span style="color:#f92672">&lt;/configItem&gt;</span>
         <span style="color:#f92672">&lt;/variant&gt;</span>
         </code></pre></div>

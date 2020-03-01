@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" />
+  <title>MongoDB deprecating &#34;count&#34; | this&#39;n&#39;that</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="Prior warning: this post may turn into a rant.
+Prologue In the second half of 2019 at my company we have got an expected notice from our MongoDB provider, Atlas.
+The notice was about the usual pain that they do every now and then: force upgrade for old versions. At that time we were running MongoDB v3.4 and so now we got the notice to ensure that we have a driver that supports v3." />
+  <meta name="author" content="" />
+  <meta name="generator" content="Hugo 0.65.3" />
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="this&#39;n&#39;that Feed" />
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/style-compat.18854265a818d0eba8e44a33b636016343ee1980cb37565042864f57e53a611c.css" />
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/style.730b32910bfb669086b30a9d93000643f054cd3254e0fb3e53ac901d89098fa0.css" />
+  <!--<![endif]-->
+  <script defer src="/script.9df38729991a6ec08d83b60514e841529cebd5ccc800cf8e1f98fb63e73aaa73.js"></script>
+  <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101231825);</script>
+  <script async src="//static.getclicky.com/js"></script>
+</head>
+<body>
+<div class="pure-g">
+  <div class="pure-u-1-24 pure-u-md-5-24"></div>
+  <div class="pure-u-22-24 pure-u-md-14-24">
+  
+<div class="navigation">
+  <div class="navigation-header clearfix">
+    <div class="pure-menu pure-menu-horizontal">
+      <a class="pure-menu-heading pure-menu-link" href="/">
+        this&#39;n&#39;that
+      </a>
+    </div>
+  </div>
+  <div class="navigation-content">
+    <div class="pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item" title="All posts">
+          <a  class="pure-menu-link" href="/posts/">Posts</a>
+        </li>
+        <li class="pure-menu-item" title="All tags">
+          <a  class="pure-menu-link" href="/tags/">Tags</a>
+        </li>
+        <li class="pure-menu-item" title="About">
+          <a  class="pure-menu-link" href="/about/about/">About</a>
+        </li>
+        <li class="pure-menu-item" title="$ who">
+          <a  class="pure-menu-link" href="/about/who/">$ who</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+  
+<div>
+  <div>
+    <h2 class="post-title">
+      
+      MongoDB deprecating &#34;count&#34;
+    </h2>
+    
+<div class="post-meta">
+  <span>Date</span> &#x5b;
+    <time datetime="2020-03-01T09:22:00&#43;01:00">
+      2020-03-01T09:22:00&#43;01:00
+    </time>
+  &#x5d;
+</div>
+
+  </div>
+  <div>
+    <p>Prior warning: this post may turn into a rant.</p>
+<h2 id="prologue">Prologue</h2>
+<p>In the second half of 2019 at my company we have got an expected notice from our
+MongoDB provider, Atlas.</p>
+<p>The notice was about the usual pain that they do every now and then: force
+upgrade for old versions. At that time we were running MongoDB v3.4 and so now
+we got the notice to ensure that we have a driver that supports v3.6 as all the
+clusters will be upgraded on the end of January 2020.</p>
+<p>All is well we look at these upgrades as a necessary evil, that causes pain in
+short therm, but will bring benefits in the long run. The benefits with newer
+MongoDB versions was the performance. We have tested some of our heavier
+queries - with which we already have had issues in production - and behold they
+become 10 times faster. (We were comparing MongoDB v3.4 with v4.2 at that time)</p>
+<p>We thought cool 10x the power! Lets do this!</p>
+<p>So we have started our long journey of upgrades, tests, fixes and further
+upgrades and tests, tears and cries, laughter and anger.</p>
+<p>Once we were satisfied with the upgrade we have deployed our first services,
+that was already in need of that performance boost. Cool we thought, surely we
+gonna have some co-workers coming to us saying: Boys don&rsquo;t know what has
+happened, but the service is blazing fast!</p>
+<p>Man, we were wrong! Surely the queries looked fast, but there was a tiny bit of
+issue: some of our calls to the database started to timeout. Worst of it those
+calls were actually fast previously. As an icing on the cake this didn&rsquo;t come to
+our attention straightaway, but only a week later, when another new service
+wanted to sync data.</p>
+<p>Once noted, we jumped into debugging. Looking at the database&rsquo;s real time
+operations (<a href="https://docs.mongodb.com/manual/reference/method/db.currentOp/"><code>db.currentOp()</code></a>) we were seeing <code>aggregation</code> calls on the biggest
+collection being called. As we didn&rsquo;t recall to have used such heavy
+aggregations on that collection, we searched through our code base to find what
+could issue this command.</p>
+<p>We have managed to find a couple of places where we have used aggregation, but
+none of them fitted the match that we seen in the operations list.</p>
+<p>Eventually one team member suggested that that aggregation is the way MongoDB
+does the count. I couldn&rsquo;t believe it at first, but then we have read a bit more
+about the new <a href="https://docs.mongodb.com/manual/reference/method/db.collection.countDocuments/"><code>countDocuments</code></a> method that was <!-- raw HTML omitted -->suggested method by the
+documentation<!-- raw HTML omitted --> to use instead of the <a href="https://docs.mongodb.com/manual/reference/method/db.collection.countDocuments/"><code>count</code></a> and turned out that it is indeed
+slower as it is more accurate.</p>
+<p>From MongoDB&rsquo;s JIRA ticket <a href="https://jira.mongodb.org/browse/NODE-1638">NODE-1638</a>:</p>
+<blockquote>
+<p>count has been deprecated for a number of reasons. First, and foremost, the
+existing count command could not be run within transactions, so an alternative
+approach needed to be taken. Secondarily, the count command in most cases was
+not accurate. We have replaced count with countDocuments and
+estimatedDocumentCount. Please use estimatedDocumentCount for the performance
+you are looking for, and parity with the original count.</p>
+</blockquote>
+<p>So the reasons against <code>count</code>:</p>
+<ol>
+<li>not giving accurate results and</li>
+<li>not transaction friendly</li>
+</ol>
+<p>From my point of view those two are not really reasons to deprecate a core
+command, which think is quite needed.</p>
+<h2 id="count-is-not-accurate"><code>count</code> is not accurate</h2>
+<p>Okay it isn&rsquo;t, but honestly what was accurate in MongoDB before? Like with
+iterating a <code>cursor</code> (with mongoose <code>stream</code>), you could easily miss documents or
+see others twice in the process. Unless you set read preference to snapshot, but
+even then if the process is long running and you have inserts in the mean time,
+then you won&rsquo;t see the new documents, so it is still a <em>meh</em> solution.</p>
+<p>For processing all the data in the database, even the ones that didn&rsquo;t exist
+when we started the process, we were using a practice where we sorted the <code>_id</code> in
+ascending order, retrieving data in batches and using the last _id in the list
+with a greater than filter: <code>{ _id: { $gt: lastId } }</code>. Like this we could
+processes all the documents without duplicates and if there were new documents
+created while the process run, no problem, still got them.</p>
+<p>Now in case of the count, so far I haven&rsquo;t seen a case where would have needed
+pinpoint accuracy. I can imagine that there are case where one needs it, but
+then just like with the streaming above there is a solution for it. The solution
+in this case comes in aggregation and I&rsquo;m sure that before the <code>countDocuments</code>
+command developers were using it to get the accurate count that they have
+needed.</p>
+<p>It is nice that now there is a method in mongo, that can give you the accurate
+count, without fiddling around with aggregation. It is convenient for those who
+need it. Still in my point it is not a reason to deprecate <code>count</code>.</p>
+<h2 id="not-transaction-safe">Not transaction safe</h2>
+<p>Well okay. It isn&rsquo;t. Don&rsquo;t know, never tried it. As I tend to work with
+microservices, I never missed or wanted to use transactions. It is hard to
+implement across services. My preference for data consistency is to make
+operations idempotent and so it is safe to put them into job queues, that
+guarantee to run it at least once.</p>
+<p>Just to emphasize it: I do respect that in some cases transactions could be the
+best or only solutions and it is nice that <code>countDocuments</code> is transaction safe.
+Just still not a reason to deprecate <code>count</code>.</p>
+<h2 id="solution">Solution</h2>
+<p>So <code>count</code> has been marked as deprecated in MongoDB v4.0, it is still well and
+alive in v4.2. Since the two replacement suggested to be used instead:</p>
+<ul>
+<li><code>countDocuments</code> - way too slow for us</li>
+<li><code>estimatedDocumentCount</code> - cannot provide a query</li>
+</ul>
+<p>are both unsuitable for us, we have reverted all our calls to use the poor old
+<code>count</code> method and we have accepted that our terminal will be showing the
+deprecation warnings for a while.</p>
+<p>For now we hope that they won&rsquo;t remove it or they will improve the performance
+of the new <code>countDocuments</code> method to be on pair with it.</p>
+<h2 id="finale">Finale</h2>
+<p>Okay, this has indeed become a rant, but you have been warned. :D Sorry.</p>
+
+  </div>
+</div>
+  <div class="footer">
+  <div class="pure-menu pure-menu-horizontal">
+    <ul class="pure-menu-list">
+      <li class="pure-menu-item" title="github profile">
+        <a class="pure-menu-link" href="https://github.com/szabolcs-szilagyi/">GitHub</a>
+      </li>
+      <li class="pure-menu-item" title="linked in profile">
+        <a class="pure-menu-link" href="https://www.linkedin.com/in/szabszilagyi/">LinkedIn</a>
+      </li>
+      <li class="pure-menu-item" title="RSS Feed">
+        <a href="/index.xml" class="pure-menu-link">RSS</a>
+      </li>
+      <li class="pure-menu-item fix-cursor-pointer" title="Go to top">
+        <a class="pure-menu-link" id="btn-gototop">
+          <span class="fix-placement-up">&#x21e7;&#xfe0e;</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+  </div>
+  <div class="pure-u-1-24 pure-u-md-5-24"></div>
+</div>
+</body>
+</html>
