@@ -8,13 +8,13 @@
   <meta name="description" content="I generally like to use english keyboard layout for programming, makes it easier to get to the special characters. However, since I&rsquo;m a hungarian, from time-to-time would like to use accented characters as well. E.g. á, é, ű, ú, ő&hellip;
 In GNU/Linux to change keyboard layout isn&rsquo;t the easiest to do. As far as I remember (from about 10 years ago) in Windows there is a graphical app that helps you with this." />
   <meta name="author" content="" />
-  <meta name="generator" content="Hugo 0.65.3" />
+  <meta name="generator" content="Hugo 0.69.2" />
   <link href="/index.xml" rel="alternate" type="application/rss+xml" title="this&#39;n&#39;that Feed" />
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="/style-compat.18854265a818d0eba8e44a33b636016343ee1980cb37565042864f57e53a611c.css" />
+  <link rel="stylesheet" href="/style-compat.0a34ff675d25c2b1a4770ded078535a8cc6cf01bfacd81f778d6afe867b248ed.css" />
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="/style.730b32910bfb669086b30a9d93000643f054cd3254e0fb3e53ac901d89098fa0.css" />
+  <link rel="stylesheet" href="/style.f5dcbf4dd08699b7669405f5790bcc67b9bf37343705215bf016e26f33e744f6.css" />
   <!--<![endif]-->
   <script defer src="/script.9df38729991a6ec08d83b60514e841529cebd5ccc800cf8e1f98fb63e73aaa73.js"></script>
   <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101231825);</script>
@@ -110,7 +110,7 @@ xkb_symbols <span style="color:#e6db74">&#34;euro-hu&#34;</span> <span style="co
 </span><span style="color:#e6db74">};
 </span></code></pre></div></li>
 <li>
-<p>the new keyboard variant should also be noted in the following two files as
+<p>the new keyboard variant should also be noted in the following four files as
 well:</p>
 <ol>
 <li>
@@ -141,6 +141,12 @@ well:</p>
 <span style="display:block;width:100%;background-color:#3c3d38">        euro-hu         us: English <span style="color:#f92672">(</span>US, with Hun<span style="color:#f92672">)</span>
 </span>        intl            us: English <span style="color:#f92672">(</span>US, intl., with dead keys<span style="color:#f92672">)</span>
         </code></pre></div>
+</li>
+<li>
+<p><code>/usr/share/X11/xkb/rules/evdev.xml</code> - same way as <code>base.xml</code></p>
+</li>
+<li>
+<p><code>/usr/share/X11/xkb/rules/evdev.lst</code> - same as <code>base.lst</code></p>
 </li>
 </ol>
 </li>

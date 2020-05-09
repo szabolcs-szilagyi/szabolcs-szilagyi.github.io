@@ -3,7 +3,7 @@
 		<title>this&#39;n&#39;that</title>
 		<link>https://szab.it/</link>
 		<description>Recent content on this&#39;n&#39;that</description>
-		<generator>Hugo 0.65.3 -- gohugo.io</generator>
+		<generator>Hugo 0.69.2 -- gohugo.io</generator>
 		<language>en-us</language>
 		<lastBuildDate>Sun, 01 Mar 2020 09:22:00 +0100</lastBuildDate>
 		<atom:link href="https://szab.it/index.xml" rel="self" type="application/rss+xml" />
@@ -278,9 +278,9 @@ there as well, that can be found for Linux.&lt;/p&gt;
 know the location of the file as well.&lt;/p&gt;
 &lt;p&gt;Here comes the idea:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;we have linux &lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt;&lt;/li&gt;
-&lt;li&gt;we have the files/folders accessible &lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt;&lt;/li&gt;
-&lt;li&gt;we could have the &lt;code&gt;zip&lt;/code&gt; program on the system &lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt;&lt;/li&gt;
+&lt;li&gt;we have linux &lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &lt;/li&gt;
+&lt;li&gt;we have the files/folders accessible &lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &lt;/li&gt;
+&lt;li&gt;we could have the &lt;code&gt;zip&lt;/code&gt; program on the system &lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;So in effect we could axe a third party npm package and use &lt;a href=&#34;https://nodejs.org/api/child%5Fprocess.html#child%5Fprocess%5Fchild%5Fprocess%5Fexec%5Fcommand%5Foptions%5Fcallback&#34;&gt;child_process.exec&lt;/a&gt;
 or &lt;a href=&#34;https://nodejs.org/api/child%5Fprocess.html#child%5Fprocess%5Fchild%5Fprocess%5Fspawn%5Fcommand%5Fargs%5Foptions&#34;&gt;child_process.spawn&lt;/a&gt; method&amp;rsquo;s from NodeJS itself. The extra 3rd party in this
@@ -348,7 +348,7 @@ xkb_symbols &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;euro-hu&amp;#34;&
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;};
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;the new keyboard variant should also be noted in the following two files as
+&lt;p&gt;the new keyboard variant should also be noted in the following four files as
 well:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -379,6 +379,12 @@ well:&lt;/p&gt;
 &lt;span style=&#34;display:block;width:100%;background-color:#3c3d38&#34;&gt;        euro-hu         us: English &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;US, with Hun&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;        intl            us: English &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;US, intl., with dead keys&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
         &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;/usr/share/X11/xkb/rules/evdev.xml&lt;/code&gt; - same way as &lt;code&gt;base.xml&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;/usr/share/X11/xkb/rules/evdev.lst&lt;/code&gt; - same as &lt;code&gt;base.lst&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
