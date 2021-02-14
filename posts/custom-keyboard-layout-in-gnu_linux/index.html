@@ -8,7 +8,7 @@
   <meta name="description" content="I generally like to use english keyboard layout for programming, makes it easier to get to the special characters. However, since I&rsquo;m a hungarian, from time-to-time would like to use accented characters as well. E.g. á, é, ű, ú, ő&hellip;
 In GNU/Linux to change keyboard layout isn&rsquo;t the easiest to do. As far as I remember (from about 10 years ago) in Windows there is a graphical app that helps you with this." />
   <meta name="author" content="" />
-  <meta name="generator" content="Hugo 0.69.2" />
+  <meta name="generator" content="Hugo 0.80.0" />
   <link href="/index.xml" rel="alternate" type="application/rss+xml" title="this&#39;n&#39;that Feed" />
   <!--[if lte IE 8]>
   <link rel="stylesheet" href="/style-compat.0a34ff675d25c2b1a4770ded078535a8cc6cf01bfacd81f778d6afe867b248ed.css" />
@@ -82,32 +82,32 @@ helps you with this. In GNU/Linux this is all via text files.</p>
 <ol>
 <li>
 <p>add a new section in the <code>us</code> symbol file - <code>/usr/share/X11/xkb/symbols/us</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">partial alphanumeric_keys
-xkb_symbols <span style="color:#e6db74">&#34;euro-hu&#34;</span> <span style="color:#f92672">{</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">      partial alphanumeric_keys
+      xkb_symbols <span style="color:#e6db74">&#34;euro-hu&#34;</span> <span style="color:#f92672">{</span>
 
-    include <span style="color:#e6db74">&#34;us(basic)&#34;</span>
-    name<span style="color:#f92672">[</span>Group1<span style="color:#f92672">]=</span> <span style="color:#e6db74">&#34;English (US, with Hun)&#34;</span>;
+          include <span style="color:#e6db74">&#34;us(basic)&#34;</span>
+          name<span style="color:#f92672">[</span>Group1<span style="color:#f92672">]=</span> <span style="color:#e6db74">&#34;English (US, with Hun)&#34;</span>;
 
-    include <span style="color:#e6db74">&#34;eurosign(5)&#34;</span>
+          include <span style="color:#e6db74">&#34;eurosign(5)&#34;</span>
 
-    include <span style="color:#e6db74">&#34;level3(ralt_switch)&#34;</span>
+          include <span style="color:#e6db74">&#34;level3(ralt_switch)&#34;</span>
 
-    key &lt;AD07&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>            u,            U,        uacute,           Uacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>;
-    key &lt;AD03&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>            e,            E,        eacute,           Eacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>;
-    key &lt;AD08&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>            i,            I,        iacute,           Iacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>;
-    key &lt;AD09&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>            o,            O,        oacute,           Oacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>;
-    key &lt;AD10&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>            p,            P,    odiaeresis,       Odiaeresis <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>;
-    key &lt;AC01&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>            a,            A,        aacute,           Aacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>;
-    key &lt;AE10&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>            0,   parenright,    odiaeresis,       Odiaeresis <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // <span style="color:#ae81ff">0</span> <span style="color:#f92672">)</span> ö Ö
-    key &lt;AE11&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>        minus,   underscore,    udiaeresis,       Udiaeresis <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // - _ ü Ü
-    key &lt;AE12&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>        equal,         plus,        oacute,           Oacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // <span style="color:#f92672">=</span> + ó Ó
-    key &lt;AD11&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>  bracketleft,    braceleft,  odoubleacute,     Odoubleacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // <span style="color:#f92672">[</span> <span style="color:#f92672">{</span> ő Ő
-    key &lt;AD12&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span> bracketright,   braceright,        uacute,           Uacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // <span style="color:#f92672">]</span> <span style="color:#f92672">}</span> ú Ú
-    key &lt;AC10&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>    semicolon,        colon,        eacute,           Eacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // ; : é É
-    key &lt;AC11&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>   apostrophe,     quotedbl,        aacute,           Aacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // <span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#e6db74">&#34; á Á
-</span><span style="color:#e6db74">    key &lt;BKSL&gt; { [    backslash,          bar,  udoubleacute,     Udoubleacute ] }; // \ | ű Ű
-</span><span style="color:#e6db74">    key &lt;LSGT&gt; { [    backslash,          bar,  udoubleacute,     Udoubleacute ] }; // \ | í Í
-</span><span style="color:#e6db74">};
+          key &lt;AD07&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>            u,            U,        uacute,           Uacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>;
+          key &lt;AD03&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>            e,            E,        eacute,           Eacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>;
+          key &lt;AD08&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>            i,            I,        iacute,           Iacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>;
+          key &lt;AD09&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>            o,            O,        oacute,           Oacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>;
+          key &lt;AD10&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>            p,            P,    odiaeresis,       Odiaeresis <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>;
+          key &lt;AC01&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>            a,            A,        aacute,           Aacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>;
+          key &lt;AE10&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>            0,   parenright,    odiaeresis,       Odiaeresis <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // <span style="color:#ae81ff">0</span> <span style="color:#f92672">)</span> ö Ö
+          key &lt;AE11&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>        minus,   underscore,    udiaeresis,       Udiaeresis <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // - _ ü Ü
+          key &lt;AE12&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>        equal,         plus,        oacute,           Oacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // <span style="color:#f92672">=</span> + ó Ó
+          key &lt;AD11&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>  bracketleft,    braceleft,  odoubleacute,     Odoubleacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // <span style="color:#f92672">[</span> <span style="color:#f92672">{</span> ő Ő
+          key &lt;AD12&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span> bracketright,   braceright,        uacute,           Uacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // <span style="color:#f92672">]</span> <span style="color:#f92672">}</span> ú Ú
+          key &lt;AC10&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>    semicolon,        colon,        eacute,           Eacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // ; : é É
+          key &lt;AC11&gt; <span style="color:#f92672">{</span> <span style="color:#f92672">[</span>   apostrophe,     quotedbl,        aacute,           Aacute <span style="color:#f92672">]</span> <span style="color:#f92672">}</span>; // <span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#e6db74">&#34; á Á
+</span><span style="color:#e6db74">          key &lt;BKSL&gt; { [    backslash,          bar,  udoubleacute,     Udoubleacute ] }; // \ | ű Ű
+</span><span style="color:#e6db74">          key &lt;LSGT&gt; { [    backslash,          bar,  udoubleacute,     Udoubleacute ] }; // \ | í Í
+</span><span style="color:#e6db74">      };
 </span></code></pre></div></li>
 <li>
 <p>the new keyboard variant should also be noted in the following four files as
@@ -115,31 +115,31 @@ well:</p>
 <ol>
 <li>
 <p><code>/usr/share/X11/xkb/rules/base.xml</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">        <span style="color:#f92672">&lt;variant&gt;</span>
-          <span style="color:#f92672">&lt;configItem&gt;</span>
-            <span style="color:#f92672">&lt;name&gt;</span>euro<span style="color:#f92672">&lt;/name&gt;</span>
-            <span style="color:#f92672">&lt;description&gt;</span>English (US, euro on 5)<span style="color:#f92672">&lt;/description&gt;</span>
-          <span style="color:#f92672">&lt;/configItem&gt;</span>
-        <span style="color:#f92672">&lt;/variant&gt;</span>
-<span style="display:block;width:100%;background-color:#3c3d38">        <span style="color:#f92672">&lt;variant&gt;</span>
-</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#f92672">&lt;configItem&gt;</span>
-</span><span style="display:block;width:100%;background-color:#3c3d38">            <span style="color:#f92672">&lt;name&gt;</span>euro-hu<span style="color:#f92672">&lt;/name&gt;</span>
-</span><span style="display:block;width:100%;background-color:#3c3d38">            <span style="color:#f92672">&lt;description&gt;</span>English (US, with Hun)<span style="color:#f92672">&lt;/description&gt;</span>
-</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#f92672">&lt;/configItem&gt;</span>
-</span><span style="display:block;width:100%;background-color:#3c3d38">        <span style="color:#f92672">&lt;/variant&gt;</span>
-</span>        <span style="color:#f92672">&lt;variant&gt;</span>
-          <span style="color:#f92672">&lt;configItem&gt;</span>
-            <span style="color:#f92672">&lt;name&gt;</span>intl<span style="color:#f92672">&lt;/name&gt;</span>
-            <span style="color:#f92672">&lt;description&gt;</span>English (US, intl., with dead keys)<span style="color:#f92672">&lt;/description&gt;</span>
-          <span style="color:#f92672">&lt;/configItem&gt;</span>
-        <span style="color:#f92672">&lt;/variant&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">                    <span style="color:#f92672">&lt;variant&gt;</span>
+                      <span style="color:#f92672">&lt;configItem&gt;</span>
+                        <span style="color:#f92672">&lt;name&gt;</span>euro<span style="color:#f92672">&lt;/name&gt;</span>
+                        <span style="color:#f92672">&lt;description&gt;</span>English (US, euro on 5)<span style="color:#f92672">&lt;/description&gt;</span>
+                      <span style="color:#f92672">&lt;/configItem&gt;</span>
+                    <span style="color:#f92672">&lt;/variant&gt;</span>
+<span style="display:block;width:100%;background-color:#3c3d38">                    <span style="color:#f92672">&lt;variant&gt;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">                      <span style="color:#f92672">&lt;configItem&gt;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">                        <span style="color:#f92672">&lt;name&gt;</span>euro-hu<span style="color:#f92672">&lt;/name&gt;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">                        <span style="color:#f92672">&lt;description&gt;</span>English (US, with Hun)<span style="color:#f92672">&lt;/description&gt;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">                      <span style="color:#f92672">&lt;/configItem&gt;</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">                    <span style="color:#f92672">&lt;/variant&gt;</span>
+</span>                    <span style="color:#f92672">&lt;variant&gt;</span>
+                      <span style="color:#f92672">&lt;configItem&gt;</span>
+                        <span style="color:#f92672">&lt;name&gt;</span>intl<span style="color:#f92672">&lt;/name&gt;</span>
+                        <span style="color:#f92672">&lt;description&gt;</span>English (US, intl., with dead keys)<span style="color:#f92672">&lt;/description&gt;</span>
+                      <span style="color:#f92672">&lt;/configItem&gt;</span>
+                    <span style="color:#f92672">&lt;/variant&gt;</span>
         </code></pre></div>
 </li>
 <li>
 <p><code>/usr/share/X11/xkb/rules/base.lst</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">        euro            us: English <span style="color:#f92672">(</span>US, euro on 5<span style="color:#f92672">)</span>
-<span style="display:block;width:100%;background-color:#3c3d38">        euro-hu         us: English <span style="color:#f92672">(</span>US, with Hun<span style="color:#f92672">)</span>
-</span>        intl            us: English <span style="color:#f92672">(</span>US, intl., with dead keys<span style="color:#f92672">)</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">                    euro            us: English <span style="color:#f92672">(</span>US, euro on 5<span style="color:#f92672">)</span>
+<span style="display:block;width:100%;background-color:#3c3d38">                    euro-hu         us: English <span style="color:#f92672">(</span>US, with Hun<span style="color:#f92672">)</span>
+</span>                    intl            us: English <span style="color:#f92672">(</span>US, intl., with dead keys<span style="color:#f92672">)</span>
         </code></pre></div>
 </li>
 <li>
@@ -163,6 +163,14 @@ I&rsquo;ve had some bad experiences with it. Namely it was slow to load the conf
 rather do it via XKB. Possible that I was doing something bad with Xmodmap&hellip;
 but we will never no that now. :D</p>
 
+    <script src="https://utteranc.es/client.js"
+            repo="szabolcs-szilagyi/szabolcs-szilagyi.github.io"
+            issue-term="pathname"
+            label="comment"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
   </div>
 </div>
   <div class="footer">
