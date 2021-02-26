@@ -59,7 +59,7 @@ our trust (no surprise there).&lt;/p&gt;
 &lt;h2 id=&#34;mail-and-calendar&#34;&gt;Mail and Calendar&lt;/h2&gt;
 &lt;p&gt;After reading the article about O365 and that GSuite also has something similar
 to that, I decided to go back to some kind of e-mail and calendar application
-like Thunderbird or Evolution.&lt;/p&gt;
+like &lt;a href=&#34;https://www.thunderbird.net/&#34;&gt;Thunderbird&lt;/a&gt; or &lt;a href=&#34;https://help.gnome.org/users/evolution/stable/&#34;&gt;Evolution&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Yes I did use O365 via the browser before, it worked actually quite well didn&amp;rsquo;t
 miss notifications and it overall provided a good interface. But using the
 browser it also means that they can track:&lt;/p&gt;
@@ -80,9 +80,9 @@ are a must have for me:&lt;/p&gt;
 &lt;li&gt;no electron apps - don&amp;rsquo;t want to run a full browser with nodejs.. just don&amp;rsquo;t&lt;/li&gt;
 &lt;li&gt;to be able to integrate with a calendar app.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Checked BlueMail briefly, but fall short on &lt;em&gt;a)&lt;/em&gt; being an electron app and &lt;em&gt;b)&lt;/em&gt; not
+&lt;p&gt;Checked &lt;a href=&#34;https://bluemail.me/&#34;&gt;BlueMail&lt;/a&gt; briefly, but fall short on &lt;em&gt;a)&lt;/em&gt; being an electron app and &lt;em&gt;b)&lt;/em&gt; not
 really maintained.&lt;/p&gt;
-&lt;p&gt;Looked at Thunderbird, it is still an okay with Lightning it can also satisfy
+&lt;p&gt;Looked at Thunderbird, it is still an okay with &lt;a href=&#34;https://addons.thunderbird.net/en-US/thunderbird/addon/lightning/&#34;&gt;Lightning&lt;/a&gt; it can also satisfy
 the calendar and it is still the default e-mail client in Ubuntu. While I don&amp;rsquo;t
 use Ubuntu this will still keep maintainers motivated. However Thunderbird just
 didn&amp;rsquo;t feel right to me.&lt;/p&gt;
@@ -106,7 +106,7 @@ tabs that I also use they are just constantly pinned: whatsapp, facebook chat,
 discord and sometimes gitter. So this provided a new challenge: can I find an
 app to unite them all? Yes I can.&lt;/p&gt;
 &lt;p&gt;Again didn&amp;rsquo;t wanted to use something that is just another browser, so went with
-an old-old friend Pidgin. All the listed chat platforms have a plugin for it,
+an old-old friend &lt;a href=&#34;https://pidgin.im/&#34;&gt;Pidgin&lt;/a&gt;. All the listed chat platforms have a plugin for it,
 open source with a clean code base (didn&amp;rsquo;t review all of the code, but all the
 files I visited was clean and relatively easy to understand), so very much
 tempting to contribute. Best of all: Pidgin will only eat up ~70 Mb of memory -
@@ -129,7 +129,7 @@ dealing with photos from my camera. Nothing work truly easily. A new motivation&
 &lt;/ul&gt;
 &lt;p&gt;the family DSLR. My wife isn&amp;rsquo;t tech savvy, so whatever solution I try next it
 has to be seamless to her, other way she won&amp;rsquo;t use it.&lt;/p&gt;
-&lt;p&gt;Now to the solution: TrueNAS. Yes, decided to run my own storage at home. As you
+&lt;p&gt;Now to the solution: &lt;a href=&#34;https://www.truenas.com/download-tn-core/&#34;&gt;TrueNAS&lt;/a&gt;. Yes, decided to run my own storage at home. As you
 may already guess I didn&amp;rsquo;t go with the most straightforward solution&amp;hellip; nah life
 would be boring if we wouldn&amp;rsquo;t make is pointlessly over complicated!&lt;/p&gt;
 &lt;p&gt;So for NAS my criteria was that I want to be able to extend it later when and if
@@ -138,7 +138,7 @@ a 4 or 5 bay NAS. Now those bigger NAS setups a for me just ridiculously
 expensive. Instead of spending big, decided to reuse my desktop PC from 2008 to
 build a NAS using TrueNAS system. It is really an awesome setup for me, but
 think I&amp;rsquo;ll write about that in a dedicated post.&lt;/p&gt;
-&lt;p&gt;On this TrueNAS setup I also installed Nextcloud, this is able to replace both
+&lt;p&gt;On this TrueNAS setup I also installed &lt;a href=&#34;https://nextcloud.com/&#34;&gt;Nextcloud&lt;/a&gt;, this is able to replace both
 Google Photos and Dropbox for me. Got a mobile app for it, easy enough to use
 and there is also a Gnome integration for it. Apart of images and files it can
 also serve as a calendar and contacts server (another stab at Google).&lt;/p&gt;
@@ -146,7 +146,7 @@ also serve as a calendar and contacts server (another stab at Google).&lt;/p&gt;
 the DSLR. NFS works surprisingly well with Darktable, it is able to read the
 files quickly enough. If I would deal with images as a profession would probably
 invest into a better network setup, but it works well enough via WiFi already.
-Only secret is to keep Darktable&amp;rsquo;s SQLight database files on the local system,
+Only secret is to keep &lt;a href=&#34;https://www.darktable.org/&#34;&gt;Darktable&lt;/a&gt;&amp;rsquo;s SQLight database files on the local system,
 having that over NFS renders the app uselessly slow.&lt;/p&gt;
 &lt;p&gt;Having the above setup working reliable and well, I&amp;rsquo;m really considering going
 back to a privacy oriented Android setup on my phone as well, without all the
