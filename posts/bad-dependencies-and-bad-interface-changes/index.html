@@ -8,7 +8,7 @@
   <meta name="description" content="Recently one of my colleagues has shared his pain about a nodeJS package that we use to zip files.
 His issue was that the library stopped generating the zip files and just hangs. Eventually found, that in the project the package in question has been upgraded, but with a small issue. The newer version has changed the interface and the same method instead of returning the instance it returns a Promise." />
   <meta name="author" content="" />
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link href="/index.xml" rel="alternate" type="application/rss+xml" title="this&#39;n&#39;that Feed" />
   <!--[if lte IE 8]>
   <link rel="stylesheet" href="/style-compat.0a34ff675d25c2b1a4770ded078535a8cc6cf01bfacd81f778d6afe867b248ed.css" />
@@ -77,62 +77,62 @@ use to zip files.</p>
 Eventually found, that in the project the package in question has been upgraded,
 but with a small issue. The newer version has changed the interface and the same
 method instead of returning the instance it returns a Promise.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">Archiver</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
-  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">aborted</span>) {
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;finalize: archive was aborted&#39;</span>));
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
-  }
-
-  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span>) {
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;finalize: archive already finalizing&#39;</span>));
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
-  }
-
-  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-
-  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_pending</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_queue</span>.<span style="color:#a6e22e">idle</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_statQueue</span>.<span style="color:#a6e22e">idle</span>()) {
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_finalize</span>();
-  }
-
-  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
-};
-</code></pre></div><!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">Archiver</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">aborted</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;finalize: archive was aborted&#39;</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;finalize: archive already finalizing&#39;</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_pending</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_queue</span>.<span style="color:#a6e22e">idle</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_statQueue</span>.<span style="color:#a6e22e">idle</span>()) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_finalize</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><!-- raw HTML omitted -->
 <p><!-- raw HTML omitted -->source:<!-- raw HTML omitted --> <a href="https://github.com/archiverjs/node-archiver/blob/0.15.1/lib/core.js#L489-L507">https://github.com/archiverjs/node-archiver/blob/0.15.1/lib/core.js#L489-L507</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">Archiver</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
-  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">aborted</span>) {
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ArchiverError</span>(<span style="color:#e6db74">&#39;ABORTED&#39;</span>));
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
-  }
-
-  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span>) {
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ArchiverError</span>(<span style="color:#e6db74">&#39;FINALIZING&#39;</span>));
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
-  }
-
-  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-
-  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_pending</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_queue</span>.<span style="color:#a6e22e">idle</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_statQueue</span>.<span style="color:#a6e22e">idle</span>()) {
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_finalize</span>();
-  }
-
-  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">self</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
-
-  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">errored</span>;
-
-    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">_module</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;end&#39;</span>, <span style="color:#66d9ef">function</span>() {
-      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">errored</span>) {
-        <span style="color:#a6e22e">resolve</span>();
-      }
-    })
-
-    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">_module</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">err</span>) {
-      <span style="color:#a6e22e">errored</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-      <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
-    })
-  })
-};
-</code></pre></div><!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">Archiver</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">aborted</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ArchiverError</span>(<span style="color:#e6db74">&#39;ABORTED&#39;</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ArchiverError</span>(<span style="color:#e6db74">&#39;FINALIZING&#39;</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_pending</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_queue</span>.<span style="color:#a6e22e">idle</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_statQueue</span>.<span style="color:#a6e22e">idle</span>()) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_finalize</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">self</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">errored</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">_module</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;end&#39;</span>, <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">errored</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">resolve</span>();
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">_module</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">err</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">errored</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><!-- raw HTML omitted -->
 <p><!-- raw HTML omitted -->source:<!-- raw HTML omitted --> <a href="https://github.com/archiverjs/node-archiver/blob/dd7f10d/lib/core.js#L759-L792">https://github.com/archiverjs/node-archiver/blob/dd7f10d/lib/core.js#L759-L792</a></p>
 <h2 id="bad-interface-changes">Bad interface changes</h2>
 <p>The painful thing about the new code isn&rsquo;t the fact that it has the same name
@@ -150,45 +150,45 @@ or something like that :D )</p>
 remained the same, always returning a stream. There could have been a new method
 created that would give back a promise and also retaining backward
 compatibility. E.g.: introducing an <code>asPromised</code> method.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">Archiver</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
-  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">aborted</span>) {
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ArchiverError</span>(<span style="color:#e6db74">&#39;ABORTED&#39;</span>));
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
-  }
-
-  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span>) {
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ArchiverError</span>(<span style="color:#e6db74">&#39;FINALIZING&#39;</span>));
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
-  }
-
-  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-
-  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_pending</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_queue</span>.<span style="color:#a6e22e">idle</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_statQueue</span>.<span style="color:#a6e22e">idle</span>()) {
-    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_finalize</span>();
-  }
-
-  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
-};
-
-<span style="color:#a6e22e">Archiver</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">asPromised</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
-  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">self</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
-
-  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">errored</span>;
-
-    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">_module</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;end&#39;</span>, <span style="color:#66d9ef">function</span>() {
-      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">errored</span>) {
-        <span style="color:#a6e22e">resolve</span>();
-      }
-    });
-
-    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">_module</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">err</span>) {
-      <span style="color:#a6e22e">errored</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-      <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
-    });
-  });
-}
-</code></pre></div><h2 id="bad-dependencies">Bad dependencies</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">Archiver</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">aborted</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ArchiverError</span>(<span style="color:#e6db74">&#39;ABORTED&#39;</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ArchiverError</span>(<span style="color:#e6db74">&#39;FINALIZING&#39;</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_state</span>.<span style="color:#a6e22e">finalize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_pending</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_queue</span>.<span style="color:#a6e22e">idle</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_statQueue</span>.<span style="color:#a6e22e">idle</span>()) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_finalize</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Archiver</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">asPromised</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">self</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">errored</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">_module</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;end&#39;</span>, <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">errored</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">resolve</span>();
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">_module</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">err</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">errored</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="bad-dependencies">Bad dependencies</h2>
 <p>Now over for the necessity of this npm package.</p>
 <p>This package is used in NodeJS, so we don&rsquo;t send it to do magic on the
 front-end, but we use it in a controlled environment: a NodeJS app running in a
@@ -203,13 +203,13 @@ know the location of the file as well.</p>
 <li>we have the files/folders accessible <input checked="" disabled="" type="checkbox"> </li>
 <li>we could have the <code>zip</code> program on the system <input checked="" disabled="" type="checkbox"> </li>
 </ul>
-<p>So in effect we could axe a third party npm package and use <a href="https://nodejs.org/api/child%5Fprocess.html#child%5Fprocess%5Fchild%5Fprocess%5Fexec%5Fcommand%5Foptions%5Fcallback">child_process.exec</a>
-or <a href="https://nodejs.org/api/child%5Fprocess.html#child%5Fprocess%5Fchild%5Fprocess%5Fspawn%5Fcommand%5Fargs%5Foptions">child_process.spawn</a> method&rsquo;s from NodeJS itself. The extra 3rd party in this
+<p>So in effect we could axe a third party npm package and use <a href="https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback">child_process.exec</a>
+or <a href="https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options">child_process.spawn</a> method&rsquo;s from NodeJS itself. The extra 3rd party in this
 case would be the <code>zip</code> program, but think it is safe to say that command is a
 battle tested, fire hardened program. Which is not likely to cause issues or
 change interface. For me an extra benefit of this approach, that we can offload
 processing from the main app to a separate CPU thread <em>aaaand</em> we can also use
-<a href="https://www.gnu.org/software/coreutils/manual/html%5Fnode/nice-invocation.html">GNU&rsquo;s nice utility</a> to set the importance of the task. Like this we can also
+<a href="https://www.gnu.org/software/coreutils/manual/html_node/nice-invocation.html">GNU&rsquo;s nice utility</a> to set the importance of the task. Like this we can also
 ensure that the main app will always have enough CPU time to respond and the zip
 command won&rsquo;t eat it up from the app as well.</p>
 <p>Gains with this:</p>

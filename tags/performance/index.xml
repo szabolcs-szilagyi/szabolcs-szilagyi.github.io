@@ -3,10 +3,129 @@
 		<title>performance on this&#39;n&#39;that</title>
 		<link>https://szab.it/tags/performance/</link>
 		<description>Recent content in performance on this&#39;n&#39;that</description>
-		<generator>Hugo 0.80.0 -- gohugo.io</generator>
+		<generator>Hugo 0.96.0 -- gohugo.io</generator>
 		<language>en-us</language>
-		<lastBuildDate>Sun, 01 Mar 2020 09:22:00 +0100</lastBuildDate>
+		<lastBuildDate>Sun, 24 Apr 2022 18:37:00 +0200</lastBuildDate>
 		<atom:link href="https://szab.it/tags/performance/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>Rewrite, refactor, knee-deep in legacy - part one</title>
+			<link>https://szab.it/posts/rewrite-refactor-knee-deep-in-legacy/</link>
+			<pubDate>Sun, 24 Apr 2022 18:37:00 +0200</pubDate>
+			<guid isPermaLink="true">https://szab.it/posts/rewrite-refactor-knee-deep-in-legacy/</guid>
+			<description>&lt;p&gt;From time-to-time we encounter some legacy projects - or the braver developers
+even work on them day after day. :) When working on such projects we do come
+across the exclamation that: &amp;ldquo;Starting from scratch would be quicker than trying
+to fix this mess!&amp;rdquo;. This normally comes from the frustration that legacy
+projects can cause.&lt;/p&gt;
+&lt;p&gt;There are already lots of articles out on the interwebs about refactor vs
+rewrite. Failure and success stories and would encourage those who don&amp;rsquo;t have
+experience in deciding this question to read many articles, pro and con. This
+article includes a few good one:
+&lt;a href=&#34;https://medium.com/@herbcaudill/lessons-from-6-software-rewrite-stories-635e4c8f7c22&#34;&gt;https://medium.com/@herbcaudill/lessons-from-6-software-rewrite-stories-635e4c8f7c22&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;So where do I stand with this question? Personally I like to work on legacy
+systems, one can feel like Indiana Jones exploring hidden gems, funny comments
+and many odd solutions. Apart of this archaeological work when you just correct
+a small bit on legacy code that can sometimes yield huge performance
+improvements that makes work on them quite rewarding. So from this you can guess
+that I&amp;rsquo;m more towards the refactor end of the scope. In my experience rewrite
+from scratch doesn&amp;rsquo;t work on larger systems.&lt;/p&gt;
+&lt;p&gt;Got two rewrite stories to share. Long-long time ago I had the chance to partake
+in a full rewrite of a large system that turned out to be the text book example
+of the struggle and up hill battles. Second is a smaller project but was a good
+reminder for me why I don&amp;rsquo;t like rewrites.&lt;/p&gt;
+&lt;h2 id=&#34;the-system&#34;&gt;The System&lt;/h2&gt;
+&lt;p&gt;The system that I have had the chance to contribute in rewriting was like this:
+had a legacy code base in python using Django with a MySQL database, then there
+was a proof-of-concept app written next to it in NodeJS using MongoDB. This PoC
+app supposed to be temporary. Yes, this is the point where you can already start
+to laugh, like that ever happens&amp;hellip; temporary&amp;hellip;, of course it went to
+production and the temp PoC solution hunted the company for 3+ years.&lt;/p&gt;
+&lt;p&gt;We tried to fix up the temp solution to get it into shape and avoid throwing
+ever growing amount of money on CPU/memory/DB and network resources. But the
+beast always managed to grow another head. This was the point where the lead at
+that time decided to start over: clean slate.&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;Lesson #1:&lt;!-- raw HTML omitted --&gt; when you create a PoC or temp solution it still need to adhere to the
+highest quality standards. In our case it was a rushed steaming pile of
+spaghetti, straight from the stow.&lt;/p&gt;
+&lt;h2 id=&#34;rewrite&#34;&gt;Rewrite&lt;/h2&gt;
+&lt;p&gt;Now we have an instable PoC system in production and a stable but painfully slow
+legacy system. How would you go about the rewrite? One could say divvy up the
+system and start rewriting small portions of it. Yeah, one could definitely take
+that path, but that wasn&amp;rsquo;t the one we picked.&lt;/p&gt;
+&lt;p&gt;We started to create a parallel system from scratch dreamed up all the
+microservices ahead of time. Decided to continue to use NodeJS with MongoDB as
+that was already the hype back then. We created a synchronization service that
+would actively bring data over from the old python system. The legacy and the
+PoC was all used in production and we wanted to test early the new microservices
+as well so we constantly synced data over to the system that nobody used yet.&lt;/p&gt;
+&lt;p&gt;The development teams were divided along the new and old systems. There was a
+larger development team supporting the old system that was actively bringing in
+money for the company and paying all of our salaries. Another smaller team had
+the marvellous job of learning about new technologies and write the
+microservices that will be the new system that will save us all.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve had the chance to be in both of those parts (supporting the legacy and help
+with the rewrite) actually neither side is fun. Supporting the old application
+had the pressure from the clients that they needed newer and newer features,
+hunting bugs, dealing with downtimes. Reward part here was that when you have
+done something you got instant feedback on your job. In the rewrite team you get
+the pressure that everybody is waiting for this saviour system to come. They
+expect to get a system that will solve all their problems, it will solve their
+insomnia, it saves their marriage, they will be better parents and the new
+system will even make them coffee in the morning. Also there is more developers
+on the old system cranking out newer and newer features that the new system of
+course will support! :D&lt;/p&gt;
+&lt;p&gt;Catching the ever growing features of the system we would like to replace is
+just like Don Quichotte fighting with the windmills. You have very small chance
+of winning. We actually tried to push back on the adoption of the new system
+saying that its just not yet ready. But eventually we all agreed that it will
+never be fully ready and at one point we need to start using it.&lt;/p&gt;
+&lt;h2 id=&#34;adaption-of-the-new-system&#34;&gt;Adaption of the new system&lt;/h2&gt;
+&lt;p&gt;The whole team saw that we won&amp;rsquo;t be able to reach feature parity. For the
+adoption we pick a client that had the least need of custom features and set
+them up with the new system.&lt;/p&gt;
+&lt;p&gt;There were a lot of hick-ups, we were correcting a lot of bugs and mistakes that
+came from the fact that the new system was also rushed. It didn&amp;rsquo;t become
+spaghetti and thanks god we did write &lt;em&gt;some&lt;/em&gt; tests - unlike the mentioned &amp;ldquo;temp
+PoC&amp;rdquo; project that had zero tests. But eventually the new system was working, it
+started to generate income for the company! To get to this point it took the
+teams about 2 years!!! Also there was one big challenge still remaining: get all
+the clients on it.&lt;/p&gt;
+&lt;p&gt;Migrating the clients was the next stage of the rewrite. Clients shouldn&amp;rsquo;t need
+to know about the changes we make in the background. They have a service that
+they expect to get regardless if the backend is python or nodejs or assembly.
+Interesting to note here that the service provided by the system relied on
+historical data. That data was all in the old system! All that data had to be
+converted and moved into the new system. This task was the one I actually ended
+up enjoying maybe the most. Luckily the conversion wasn&amp;rsquo;t too complex and it was
+interesting to see that we filled up the new databases through weeks of
+carefully controlled migrations. Had to be careful not to over load the old
+system. Then after all that: it worked! The system manage to show the same
+reports to the users just like the old system! 2-3 years and we managed to get
+to the same point as where we were before! :D&lt;/p&gt;
+&lt;h2 id=&#34;different-way&#34;&gt;Different way&lt;/h2&gt;
+&lt;p&gt;The temp PoC system was some sort of microservices architecture, sometimes we
+were joking about it saying its a micro-monolith as 4 services were serving it.
+The python legacy system was monolith. New system with the planning up front
+without good experience with microservices was more towards a distributed
+monolith with ~8 services serving the flow. We managed to change on this over
+time (without starting from scratch).&lt;/p&gt;
+&lt;p&gt;Thinking back of the decisions and what happened during the rewrite,
+frustrations from both development and customer service teams, if I would have
+to do the whole thing all over again, then would choose a different path.&lt;/p&gt;
+&lt;p&gt;Starting again with a monolith system would look at the processes and would try
+to move out small parts of the big service to a new microservice. Breaking down
+the monolith bit by bit, so that all parts are constantly in use and being
+validated. When we were doing the rewrite and testing we didn&amp;rsquo;t test the system
+with high loads. Of course everything was working on low loads and amazing
+developer computers, but when it went to production and came the load there were
+lots of performance issues.&lt;/p&gt;
+&lt;h2 id=&#34;outro&#34;&gt;Outro&lt;/h2&gt;
+&lt;p&gt;In the above case rewrite was a bad decision in my opinion, but still we managed
+to get it working. There are cases where you have no other choice than starting
+from scratch. In another post I&amp;rsquo;ll share a story where I did a full rewrite and
+would do the same again in that situation.&lt;/p&gt;
+</description>
+		</item>
 		<item>
 			<title>MongoDB deprecating &#34;count&#34;</title>
 			<link>https://szab.it/posts/mongodb-deprecating-count/</link>
