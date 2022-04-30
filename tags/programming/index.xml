@@ -5,8 +5,93 @@
 		<description>Recent content in programming on this&#39;n&#39;that</description>
 		<generator>Hugo 0.96.0 -- gohugo.io</generator>
 		<language>en-us</language>
-		<lastBuildDate>Sun, 24 Apr 2022 18:37:00 +0200</lastBuildDate>
+		<lastBuildDate>Sat, 30 Apr 2022 12:07:00 +0200</lastBuildDate>
 		<atom:link href="https://szab.it/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>Rewrite, refactor, knee-deep in legacy - part two</title>
+			<link>https://szab.it/posts/rewrite-refactor-knee-deep-in-legacy-part-two/</link>
+			<pubDate>Sat, 30 Apr 2022 12:07:00 +0200</pubDate>
+			<guid isPermaLink="true">https://szab.it/posts/rewrite-refactor-knee-deep-in-legacy-part-two/</guid>
+			<description>&lt;p&gt;I really don&amp;rsquo;t take on extra work apart of my full time job. At work I do get to
+try many different things. We get chance to work on both legacy and greenfield
+projects. So really don&amp;rsquo;t feel that I would need extra projects on the side.. :D&lt;/p&gt;
+&lt;p&gt;This project that I&amp;rsquo;m gonna write about is a webshop, that sort of fallen into
+my lap. Back in 2010, when I started out with programming I&amp;rsquo;ve been doing
+webhops and inventory sites, using PHP, MySQL. So it didn&amp;rsquo;t feel too alien to me
+to help out every now and then, when the person running it needed help. Even
+though I really don&amp;rsquo;t like webhops and always turned them away, this was the
+first and last exception.&lt;/p&gt;
+&lt;p&gt;I got to be a second dev on this project as the original author had less and
+less time to deal with it. Eventually the situation got to the point that I had
+to take over the maintenance fully (to much of my dislike).&lt;/p&gt;
+&lt;h2 id=&#34;state&#34;&gt;State&lt;/h2&gt;
+&lt;p&gt;The site was written in PHP using MySQL and NextJS for the front-end. The
+backend was producing normal JSONs, so nothing too exotic there. The issues
+started when one started to look under the hood. The original author also didn&amp;rsquo;t
+have much time to actually do the site and this was reflected in the code as
+well.&lt;/p&gt;
+&lt;p&gt;It was really chaotic and as I didn&amp;rsquo;t do programming in PHP for long it was hard
+for me to change it in a good way. Since the site was simple there was no
+framework used and as it was a rushed job the most common mistake was also made:
+no tests were written.&lt;/p&gt;
+&lt;p&gt;Front-end was also similar, with the exception that there NextJS gave a nice
+frame to it, but also zero tests to see if everything is working.&lt;/p&gt;
+&lt;h2 id=&#34;kickoff&#34;&gt;Kickoff&lt;/h2&gt;
+&lt;p&gt;When I had to take over the maintenance including running the server, it was
+clear that I won&amp;rsquo;t be able to support the PHP backend specially in its current
+form. Wanted to fix that up and stick with it, but really couldn&amp;rsquo;t get a handle
+on it.&lt;/p&gt;
+&lt;p&gt;At that time I started to get to know NestJS as at my company we started to
+migrate services to this framework. So for me it was an easy choice to go with
+NestJS. The plan was to rewrite the backend using NestJS while keeping the
+database schema and HTTP API the same.&lt;/p&gt;
+&lt;p&gt;This time I&amp;rsquo;ve made sure to do it in TDD, so that every new route and service
+was fully tested. Some logic issues came out that were also present in the PHP
+version. It was an interesting journey, but at times it did feel monotone, doing
+the same over and over. But on the end all worked out and managed to deploy the
+backend with nearly zero change to the front-end.&lt;/p&gt;
+&lt;p&gt;With NestJS the default database ORM is TypeORM, it supports many different
+databases. In general I don&amp;rsquo;t trust libraries that can do anything while
+providing the same interface. But here it actually worked out nicely, as when I
+was looking for database providers I couldn&amp;rsquo;t find cheap MySQL provider while I
+managed to find a really cheap (actually free plan) for PostgreSQL. This was the
+first time where I actually migrated from one database to a different one with
+about 10 minutes job thanks to the ORM. I did concentrate on using the ORM&amp;rsquo;s
+methods for building queries and had zero raw SQL statements in the code.&lt;/p&gt;
+&lt;h2 id=&#34;frontend&#34;&gt;Frontend&lt;/h2&gt;
+&lt;p&gt;The frontend wasn&amp;rsquo;t in the best of shape either, but hey it is React thanks to
+NextJS, so that help a bit. It wasn&amp;rsquo;t in such a bad shape that I would want to
+rewrite from scratch, but I needed some proof after each and every change that
+all is working.&lt;/p&gt;
+&lt;p&gt;Tried to write tests using Jest, but the react part wasn&amp;rsquo;t written with the best
+practices, so it brought out all timing issues. This way proved to be really
+slow going. Here I decided to do an end-to-end testing using Cypress instead
+unit and functional tests with Jest.&lt;/p&gt;
+&lt;p&gt;Had zero experience with Cypress, just seen some PRs and nice comments at work
+from colleges. Before jumping into Cypress tests I crunched through a course
+from udemy, with double playback speed, think it took me day and a half. Sorry,
+don&amp;rsquo;t want to brag here but still makes me smile thinking about the instructor&amp;rsquo;s
+voice in double speed :D&lt;/p&gt;
+&lt;p&gt;After this I covered all the pages and all the features that I came across. With
+cypress it was truly a breeze, timing issues were still present, but manage do
+put some &lt;code&gt;cy.wait&lt;/code&gt; commands and TODO comments for a later time.&lt;/p&gt;
+&lt;p&gt;Once cypress covered everything, refactoring the front-end and getting rid of
+all the timing issues was a dream. Okay maybe not a dream, but went with good
+speed and managed to do frequent deploys, knowing all is working.&lt;/p&gt;
+&lt;h2 id=&#34;outro&#34;&gt;Outro&lt;/h2&gt;
+&lt;p&gt;Overall I&amp;rsquo;m happy that I chose rewrite, with the old code without tests I would
+still be having nightmares. Since then I managed to extend on the features of
+the site and also automated a lot of tasks on it. All these new features were
+done with tests, so at all time I know that the site is working and that the
+person relying on it won&amp;rsquo;t lose sales due to bugs.&lt;/p&gt;
+&lt;p&gt;Also this project gave me a good chance to deepen my knowledge with NestJS,
+Cypress, React and NextJS. Did make me a fan of NestJS and NextJS!&lt;/p&gt;
+&lt;p&gt;However I did put a &lt;strong&gt;lot&lt;/strong&gt; of work into it. Looking back on it, eventually I
+rewrote the front-end as well. Via refactors think there is no line that I
+didn&amp;rsquo;t touch there. So in hind site for a webshop I would pick a provider rather
+than hand rolling it.&lt;/p&gt;
+</description>
+		</item>
 		<item>
 			<title>Rewrite, refactor, knee-deep in legacy - part one</title>
 			<link>https://szab.it/posts/rewrite-refactor-knee-deep-in-legacy/</link>

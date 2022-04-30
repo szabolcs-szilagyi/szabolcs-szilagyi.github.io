@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" />
+  <title>Rewrite, refactor, knee-deep in legacy - part two | this&#39;n&#39;that</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="I really don&rsquo;t take on extra work apart of my full time job. At work I do get to try many different things. We get chance to work on both legacy and greenfield projects. So really don&rsquo;t feel that I would need extra projects on the side.. :D
+This project that I&rsquo;m gonna write about is a webshop, that sort of fallen into my lap. Back in 2010, when I started out with programming I&rsquo;ve been doing webhops and inventory sites, using PHP, MySQL." />
+  <meta name="author" content="" />
+  <meta name="generator" content="Hugo 0.96.0" />
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="this&#39;n&#39;that Feed" />
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/style-compat.0a34ff675d25c2b1a4770ded078535a8cc6cf01bfacd81f778d6afe867b248ed.css" />
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/style.f5dcbf4dd08699b7669405f5790bcc67b9bf37343705215bf016e26f33e744f6.css" />
+  <!--<![endif]-->
+  <script defer src="/script.9df38729991a6ec08d83b60514e841529cebd5ccc800cf8e1f98fb63e73aaa73.js"></script>
+  <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101231825);</script>
+  <script async src="//static.getclicky.com/js"></script>
+</head>
+<body>
+<div class="pure-g">
+  <div class="pure-u-1-24 pure-u-md-5-24"></div>
+  <div class="pure-u-22-24 pure-u-md-14-24">
+  
+<div class="navigation">
+  <div class="navigation-header clearfix">
+    <div class="pure-menu pure-menu-horizontal">
+      <a class="pure-menu-heading pure-menu-link" href="/">
+        this&#39;n&#39;that
+      </a>
+    </div>
+  </div>
+  <div class="navigation-content">
+    <div class="pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item" title="All posts">
+          <a  class="pure-menu-link" href="/posts/">Posts</a>
+        </li>
+        <li class="pure-menu-item" title="All tags">
+          <a  class="pure-menu-link" href="/tags/">Tags</a>
+        </li>
+        <li class="pure-menu-item" title="About">
+          <a  class="pure-menu-link" href="/about/about/">About</a>
+        </li>
+        <li class="pure-menu-item" title="$ who">
+          <a  class="pure-menu-link" href="/about/who/">$ who</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+  
+<div>
+  <div>
+    <h2 class="post-title">
+      
+      Rewrite, refactor, knee-deep in legacy - part two
+    </h2>
+    
+<div class="post-meta">
+  <span>Date</span> &#x5b;
+    <time datetime="2022-04-30T12:07:00&#43;02:00">
+      2022-04-30T12:07:00&#43;02:00
+    </time>
+  &#x5d;
+</div>
+
+  </div>
+  <div>
+    <p>I really don&rsquo;t take on extra work apart of my full time job. At work I do get to
+try many different things. We get chance to work on both legacy and greenfield
+projects. So really don&rsquo;t feel that I would need extra projects on the side.. :D</p>
+<p>This project that I&rsquo;m gonna write about is a webshop, that sort of fallen into
+my lap. Back in 2010, when I started out with programming I&rsquo;ve been doing
+webhops and inventory sites, using PHP, MySQL. So it didn&rsquo;t feel too alien to me
+to help out every now and then, when the person running it needed help. Even
+though I really don&rsquo;t like webhops and always turned them away, this was the
+first and last exception.</p>
+<p>I got to be a second dev on this project as the original author had less and
+less time to deal with it. Eventually the situation got to the point that I had
+to take over the maintenance fully (to much of my dislike).</p>
+<h2 id="state">State</h2>
+<p>The site was written in PHP using MySQL and NextJS for the front-end. The
+backend was producing normal JSONs, so nothing too exotic there. The issues
+started when one started to look under the hood. The original author also didn&rsquo;t
+have much time to actually do the site and this was reflected in the code as
+well.</p>
+<p>It was really chaotic and as I didn&rsquo;t do programming in PHP for long it was hard
+for me to change it in a good way. Since the site was simple there was no
+framework used and as it was a rushed job the most common mistake was also made:
+no tests were written.</p>
+<p>Front-end was also similar, with the exception that there NextJS gave a nice
+frame to it, but also zero tests to see if everything is working.</p>
+<h2 id="kickoff">Kickoff</h2>
+<p>When I had to take over the maintenance including running the server, it was
+clear that I won&rsquo;t be able to support the PHP backend specially in its current
+form. Wanted to fix that up and stick with it, but really couldn&rsquo;t get a handle
+on it.</p>
+<p>At that time I started to get to know NestJS as at my company we started to
+migrate services to this framework. So for me it was an easy choice to go with
+NestJS. The plan was to rewrite the backend using NestJS while keeping the
+database schema and HTTP API the same.</p>
+<p>This time I&rsquo;ve made sure to do it in TDD, so that every new route and service
+was fully tested. Some logic issues came out that were also present in the PHP
+version. It was an interesting journey, but at times it did feel monotone, doing
+the same over and over. But on the end all worked out and managed to deploy the
+backend with nearly zero change to the front-end.</p>
+<p>With NestJS the default database ORM is TypeORM, it supports many different
+databases. In general I don&rsquo;t trust libraries that can do anything while
+providing the same interface. But here it actually worked out nicely, as when I
+was looking for database providers I couldn&rsquo;t find cheap MySQL provider while I
+managed to find a really cheap (actually free plan) for PostgreSQL. This was the
+first time where I actually migrated from one database to a different one with
+about 10 minutes job thanks to the ORM. I did concentrate on using the ORM&rsquo;s
+methods for building queries and had zero raw SQL statements in the code.</p>
+<h2 id="frontend">Frontend</h2>
+<p>The frontend wasn&rsquo;t in the best of shape either, but hey it is React thanks to
+NextJS, so that help a bit. It wasn&rsquo;t in such a bad shape that I would want to
+rewrite from scratch, but I needed some proof after each and every change that
+all is working.</p>
+<p>Tried to write tests using Jest, but the react part wasn&rsquo;t written with the best
+practices, so it brought out all timing issues. This way proved to be really
+slow going. Here I decided to do an end-to-end testing using Cypress instead
+unit and functional tests with Jest.</p>
+<p>Had zero experience with Cypress, just seen some PRs and nice comments at work
+from colleges. Before jumping into Cypress tests I crunched through a course
+from udemy, with double playback speed, think it took me day and a half. Sorry,
+don&rsquo;t want to brag here but still makes me smile thinking about the instructor&rsquo;s
+voice in double speed :D</p>
+<p>After this I covered all the pages and all the features that I came across. With
+cypress it was truly a breeze, timing issues were still present, but manage do
+put some <code>cy.wait</code> commands and TODO comments for a later time.</p>
+<p>Once cypress covered everything, refactoring the front-end and getting rid of
+all the timing issues was a dream. Okay maybe not a dream, but went with good
+speed and managed to do frequent deploys, knowing all is working.</p>
+<h2 id="outro">Outro</h2>
+<p>Overall I&rsquo;m happy that I chose rewrite, with the old code without tests I would
+still be having nightmares. Since then I managed to extend on the features of
+the site and also automated a lot of tasks on it. All these new features were
+done with tests, so at all time I know that the site is working and that the
+person relying on it won&rsquo;t lose sales due to bugs.</p>
+<p>Also this project gave me a good chance to deepen my knowledge with NestJS,
+Cypress, React and NextJS. Did make me a fan of NestJS and NextJS!</p>
+<p>However I did put a <strong>lot</strong> of work into it. Looking back on it, eventually I
+rewrote the front-end as well. Via refactors think there is no line that I
+didn&rsquo;t touch there. So in hind site for a webshop I would pick a provider rather
+than hand rolling it.</p>
+
+    <script src="https://utteranc.es/client.js"
+            repo="szabolcs-szilagyi/szabolcs-szilagyi.github.io"
+            issue-term="pathname"
+            label="comment"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+  <div class="footer">
+  <div class="pure-menu pure-menu-horizontal">
+    <ul class="pure-menu-list">
+      <li class="pure-menu-item" title="github profile">
+        <a class="pure-menu-link" href="https://github.com/szabolcs-szilagyi/">GitHub</a>
+      </li>
+      <li class="pure-menu-item" title="linked in profile">
+        <a class="pure-menu-link" href="https://www.linkedin.com/in/szabszilagyi/">LinkedIn</a>
+      </li>
+      <li class="pure-menu-item" title="RSS Feed">
+        <a href="/index.xml" class="pure-menu-link">RSS</a>
+      </li>
+      <li class="pure-menu-item fix-cursor-pointer" title="Go to top">
+        <a class="pure-menu-link" id="btn-gototop">
+          <span class="fix-placement-up">&#x21e7;&#xfe0e;</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+  </div>
+  <div class="pure-u-1-24 pure-u-md-5-24"></div>
+</div>
+</body>
+</html>
