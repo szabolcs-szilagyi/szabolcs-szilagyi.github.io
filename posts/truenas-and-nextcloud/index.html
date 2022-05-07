@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" />
+  <title>TrueNAS &amp; Nextcloud | this&#39;n&#39;that</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="Awhile back I wrote about my experience in running TrueNAS and Nextcloud server at home. Thought I would give a small update how is that after 1.5 years.
+I&rsquo;m still very happy with the whole setup, even extended storage in the server. Had some interesting experiences when I tried to upgrade Plex and Nextcloud jails. There I just gave up, I still update and upgrade them, but not via TrueNAS&rsquo; update functionality, but by logging into the instance and issuing the update commands in the container." />
+  <meta name="author" content="" />
+  <meta name="generator" content="Hugo 0.96.0" />
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="this&#39;n&#39;that Feed" />
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/style-compat.0a34ff675d25c2b1a4770ded078535a8cc6cf01bfacd81f778d6afe867b248ed.css" />
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/style.f5dcbf4dd08699b7669405f5790bcc67b9bf37343705215bf016e26f33e744f6.css" />
+  <!--<![endif]-->
+  <script defer src="/script.9df38729991a6ec08d83b60514e841529cebd5ccc800cf8e1f98fb63e73aaa73.js"></script>
+  <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101231825);</script>
+  <script async src="//static.getclicky.com/js"></script>
+</head>
+<body>
+<div class="pure-g">
+  <div class="pure-u-1-24 pure-u-md-5-24"></div>
+  <div class="pure-u-22-24 pure-u-md-14-24">
+  
+<div class="navigation">
+  <div class="navigation-header clearfix">
+    <div class="pure-menu pure-menu-horizontal">
+      <a class="pure-menu-heading pure-menu-link" href="/">
+        this&#39;n&#39;that
+      </a>
+    </div>
+  </div>
+  <div class="navigation-content">
+    <div class="pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item" title="All posts">
+          <a  class="pure-menu-link" href="/posts/">Posts</a>
+        </li>
+        <li class="pure-menu-item" title="All tags">
+          <a  class="pure-menu-link" href="/tags/">Tags</a>
+        </li>
+        <li class="pure-menu-item" title="About">
+          <a  class="pure-menu-link" href="/about/about/">About</a>
+        </li>
+        <li class="pure-menu-item" title="$ who">
+          <a  class="pure-menu-link" href="/about/who/">$ who</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+  
+<div>
+  <div>
+    <h2 class="post-title">
+      
+      TrueNAS &amp; Nextcloud
+    </h2>
+    
+<div class="post-meta">
+  <span>Date</span> &#x5b;
+    <time datetime="2022-05-07T10:42:00&#43;02:00">
+      2022-05-07T10:42:00&#43;02:00
+    </time>
+  &#x5d;
+</div>
+
+  </div>
+  <div>
+    <p>Awhile back I wrote about my experience in running <a href="/posts/time-travel-and-privacy/">TrueNAS and Nextcloud</a> server
+at home. Thought I would give a small update how is that after 1.5 years.</p>
+<p>I&rsquo;m still very happy with the whole setup, even extended storage in the server.
+Had some interesting experiences when I tried to upgrade Plex and Nextcloud
+jails. There I just gave up, I still update and upgrade them, but not via
+TrueNAS&rsquo; update functionality, but by logging into the instance and issuing the
+update commands in the container. Also before updating I always make backups of
+them using the <a href="https://www.truenas.com/docs/core/storage/snapshots/">snapshot feature</a> and when I managed to fubar my Nextcloud
+instance it was just ~4 clicks to restore it to normal without losing data or
+settings or anything. It is quite fiddly, still didn&rsquo;t manage to figure out how
+am I going to upgrade the MySQL in that container. Tried to just use the
+system&rsquo;s package manager, but that didn&rsquo;t turn out well.. So might gonna
+re-create a new instance and just migrate settings and mounts over.</p>
+<p>Managed to discover a <a href="https://apps.nextcloud.com/apps/news">plugin</a> for Nextcloud recently that manages RSS feeds and
+has also an <a href="https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader">Android app</a>, so that it can keep track of read and unread news no
+matter where the reading happened. Pretty much like feedly (used that service
+before finding this), so I can read some articles on the computer and those will
+be also marked as read on the mobile. Writing it down it feels like a laughable
+feature, but its really convenient! (one less google owned service that I use)</p>
+<p>My only grievance with Nextcloud is a <a href="https://github.com/nextcloud/android/pull/9981">regression in their mobile app</a> that they
+are really slow on fixing it. The issue is about that once you sync photos from
+Nextcloud to your phone, then the mobile&rsquo;s gallery app won&rsquo;t see them properly,
+so you cannot use those photos in other apps. E.g. would like to crop and only
+send the cropped image to someone on discord, well then you&rsquo;re out of luck..
+have to edit it on the computer.. and since I&rsquo;m on the computer, might as well
+send it from there.. Not a deal breaker bug, but it is annoying. Like this
+Nextcloud for my wife is only about backup and easy access on the computer.</p>
+<p>Over to backup feature of TrueNAS. Those files that are important to me and they
+are not in Nextcloud (e.g. full family photo collection) I setup TrueNAS to do
+daily cloud backups. I&rsquo;m using <a href="https://www.backblaze.com/b2/cloud-storage.html">Backblaze</a> for it and like this I have an offsite
+backup for ~7 USD/month for all those files that are truly important. Also
+TrueNAS can do encrypted backups, so if the worst would happen and Backblaze
+would get hacked, then still nobody would have to see pictures of me sipping
+beer in my underwear. :D</p>
+<p>So in this post I have mentioned:</p>
+<ul>
+<li>Nextcloud 11 times and</li>
+<li>TrueNAS 7 number of times</li>
+</ul>
+<p>Safe to say that I&rsquo;m very happy with this setup and that I&rsquo;ve managed to
+repurposed an old PC that wouldn&rsquo;t really get otherwise any use.</p>
+
+    <script src="https://utteranc.es/client.js"
+            repo="szabolcs-szilagyi/szabolcs-szilagyi.github.io"
+            issue-term="pathname"
+            label="comment"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+  <div class="footer">
+  <div class="pure-menu pure-menu-horizontal">
+    <ul class="pure-menu-list">
+      <li class="pure-menu-item" title="github profile">
+        <a class="pure-menu-link" href="https://github.com/szabolcs-szilagyi/">GitHub</a>
+      </li>
+      <li class="pure-menu-item" title="linked in profile">
+        <a class="pure-menu-link" href="https://www.linkedin.com/in/szabszilagyi/">LinkedIn</a>
+      </li>
+      <li class="pure-menu-item" title="RSS Feed">
+        <a href="/index.xml" class="pure-menu-link">RSS</a>
+      </li>
+      <li class="pure-menu-item fix-cursor-pointer" title="Go to top">
+        <a class="pure-menu-link" id="btn-gototop">
+          <span class="fix-placement-up">&#x21e7;&#xfe0e;</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+  </div>
+  <div class="pure-u-1-24 pure-u-md-5-24"></div>
+</div>
+</body>
+</html>

@@ -8,6 +8,24 @@
     <loc>https://szab.it/about/who/</loc>
     <lastmod>2022-04-24T18:59:45+02:00</lastmod>
   </url><url>
+    <loc>https://szab.it/posts/</loc>
+    <lastmod>2022-05-07T10:42:54+02:00</lastmod>
+  </url><url>
+    <loc>https://szab.it/tags/privacy/</loc>
+    <lastmod>2022-05-07T10:42:54+02:00</lastmod>
+  </url><url>
+    <loc>https://szab.it/tags/server/</loc>
+    <lastmod>2022-05-07T10:42:54+02:00</lastmod>
+  </url><url>
+    <loc>https://szab.it/tags/</loc>
+    <lastmod>2022-05-07T10:42:54+02:00</lastmod>
+  </url><url>
+    <loc>https://szab.it/</loc>
+    <lastmod>2022-05-07T10:42:54+02:00</lastmod>
+  </url><url>
+    <loc>https://szab.it/posts/truenas-and-nextcloud/</loc>
+    <lastmod>2022-05-07T10:42:54+02:00</lastmod>
+  </url><url>
     <loc>https://szab.it/tags/cypress/</loc>
     <lastmod>2022-04-30T12:07:38+02:00</lastmod>
   </url><url>
@@ -20,19 +38,10 @@
     <loc>https://szab.it/tags/nodejs/</loc>
     <lastmod>2022-04-30T12:07:38+02:00</lastmod>
   </url><url>
-    <loc>https://szab.it/posts/</loc>
-    <lastmod>2022-04-30T12:07:38+02:00</lastmod>
-  </url><url>
     <loc>https://szab.it/tags/programming/</loc>
     <lastmod>2022-04-30T12:07:38+02:00</lastmod>
   </url><url>
     <loc>https://szab.it/posts/rewrite-refactor-knee-deep-in-legacy-part-two/</loc>
-    <lastmod>2022-04-30T12:07:38+02:00</lastmod>
-  </url><url>
-    <loc>https://szab.it/tags/</loc>
-    <lastmod>2022-04-30T12:07:38+02:00</lastmod>
-  </url><url>
-    <loc>https://szab.it/</loc>
     <lastmod>2022-04-30T12:07:38+02:00</lastmod>
   </url><url>
     <loc>https://szab.it/tags/performance/</loc>
@@ -41,13 +50,7 @@
     <loc>https://szab.it/posts/rewrite-refactor-knee-deep-in-legacy/</loc>
     <lastmod>2022-04-24T18:54:58+02:00</lastmod>
   </url><url>
-    <loc>https://szab.it/tags/privacy/</loc>
-    <lastmod>2022-04-24T18:38:04+02:00</lastmod>
-  </url><url>
     <loc>https://szab.it/tags/security/</loc>
-    <lastmod>2022-04-24T18:38:04+02:00</lastmod>
-  </url><url>
-    <loc>https://szab.it/tags/server/</loc>
     <lastmod>2022-04-24T18:38:04+02:00</lastmod>
   </url><url>
     <loc>https://szab.it/posts/time-travel-and-privacy/</loc>

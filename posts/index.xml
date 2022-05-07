@@ -5,8 +5,56 @@
 		<description>Recent content in Posts on this&#39;n&#39;that</description>
 		<generator>Hugo 0.96.0 -- gohugo.io</generator>
 		<language>en-us</language>
-		<lastBuildDate>Sat, 30 Apr 2022 12:07:00 +0200</lastBuildDate>
+		<lastBuildDate>Sat, 07 May 2022 10:42:00 +0200</lastBuildDate>
 		<atom:link href="https://szab.it/posts/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>TrueNAS &amp; Nextcloud</title>
+			<link>https://szab.it/posts/truenas-and-nextcloud/</link>
+			<pubDate>Sat, 07 May 2022 10:42:00 +0200</pubDate>
+			<guid isPermaLink="true">https://szab.it/posts/truenas-and-nextcloud/</guid>
+			<description>&lt;p&gt;Awhile back I wrote about my experience in running &lt;a href=&#34;https://szab.it/posts/time-travel-and-privacy/&#34;&gt;TrueNAS and Nextcloud&lt;/a&gt; server
+at home. Thought I would give a small update how is that after 1.5 years.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m still very happy with the whole setup, even extended storage in the server.
+Had some interesting experiences when I tried to upgrade Plex and Nextcloud
+jails. There I just gave up, I still update and upgrade them, but not via
+TrueNAS&amp;rsquo; update functionality, but by logging into the instance and issuing the
+update commands in the container. Also before updating I always make backups of
+them using the &lt;a href=&#34;https://www.truenas.com/docs/core/storage/snapshots/&#34;&gt;snapshot feature&lt;/a&gt; and when I managed to fubar my Nextcloud
+instance it was just ~4 clicks to restore it to normal without losing data or
+settings or anything. It is quite fiddly, still didn&amp;rsquo;t manage to figure out how
+am I going to upgrade the MySQL in that container. Tried to just use the
+system&amp;rsquo;s package manager, but that didn&amp;rsquo;t turn out well.. So might gonna
+re-create a new instance and just migrate settings and mounts over.&lt;/p&gt;
+&lt;p&gt;Managed to discover a &lt;a href=&#34;https://apps.nextcloud.com/apps/news&#34;&gt;plugin&lt;/a&gt; for Nextcloud recently that manages RSS feeds and
+has also an &lt;a href=&#34;https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader&#34;&gt;Android app&lt;/a&gt;, so that it can keep track of read and unread news no
+matter where the reading happened. Pretty much like feedly (used that service
+before finding this), so I can read some articles on the computer and those will
+be also marked as read on the mobile. Writing it down it feels like a laughable
+feature, but its really convenient! (one less google owned service that I use)&lt;/p&gt;
+&lt;p&gt;My only grievance with Nextcloud is a &lt;a href=&#34;https://github.com/nextcloud/android/pull/9981&#34;&gt;regression in their mobile app&lt;/a&gt; that they
+are really slow on fixing it. The issue is about that once you sync photos from
+Nextcloud to your phone, then the mobile&amp;rsquo;s gallery app won&amp;rsquo;t see them properly,
+so you cannot use those photos in other apps. E.g. would like to crop and only
+send the cropped image to someone on discord, well then you&amp;rsquo;re out of luck..
+have to edit it on the computer.. and since I&amp;rsquo;m on the computer, might as well
+send it from there.. Not a deal breaker bug, but it is annoying. Like this
+Nextcloud for my wife is only about backup and easy access on the computer.&lt;/p&gt;
+&lt;p&gt;Over to backup feature of TrueNAS. Those files that are important to me and they
+are not in Nextcloud (e.g. full family photo collection) I setup TrueNAS to do
+daily cloud backups. I&amp;rsquo;m using &lt;a href=&#34;https://www.backblaze.com/b2/cloud-storage.html&#34;&gt;Backblaze&lt;/a&gt; for it and like this I have an offsite
+backup for ~7 USD/month for all those files that are truly important. Also
+TrueNAS can do encrypted backups, so if the worst would happen and Backblaze
+would get hacked, then still nobody would have to see pictures of me sipping
+beer in my underwear. :D&lt;/p&gt;
+&lt;p&gt;So in this post I have mentioned:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Nextcloud 11 times and&lt;/li&gt;
+&lt;li&gt;TrueNAS 7 number of times&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Safe to say that I&amp;rsquo;m very happy with this setup and that I&amp;rsquo;ve managed to
+repurposed an old PC that wouldn&amp;rsquo;t really get otherwise any use.&lt;/p&gt;
+</description>
+		</item>
 		<item>
 			<title>Rewrite, refactor, knee-deep in legacy - part two</title>
 			<link>https://szab.it/posts/rewrite-refactor-knee-deep-in-legacy-part-two/</link>
