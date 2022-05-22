@@ -5,8 +5,67 @@
 		<description>Recent content in Posts on this&#39;n&#39;that</description>
 		<generator>Hugo 0.96.0 -- gohugo.io</generator>
 		<language>en-us</language>
-		<lastBuildDate>Sat, 07 May 2022 10:42:00 +0200</lastBuildDate>
+		<lastBuildDate>Sun, 22 May 2022 12:01:00 +0200</lastBuildDate>
 		<atom:link href="https://szab.it/posts/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>Responsible programming</title>
+			<link>https://szab.it/posts/responsible-programming/</link>
+			<pubDate>Sun, 22 May 2022 12:01:00 +0200</pubDate>
+			<guid isPermaLink="true">https://szab.it/posts/responsible-programming/</guid>
+			<description>&lt;p&gt;As programmers we come a across quite often a question: &amp;ldquo;Is the application safe
+to deploy?&amp;rdquo;. Myself as well have been thinking at times should I deploy X or Y
+feature even I know there is an edge-case bug in there? Of course later those
+are the bugs that the users will find, even though they aren&amp;rsquo;t looking, but just
+shows sometimes how far we get from the way our users would expect an
+application to work.&lt;/p&gt;
+&lt;p&gt;Long time ago when someone would say: &lt;em&gt;We can only deploy an application when it
+is safe to do open-heart surgery with it!&lt;/em&gt; I would smile a bit to myself thinking
+that I&amp;rsquo;m not doing medical equipment nor aviation software. But as years past
+and I got more experience working with spaghetti code and legacy systems that I
+inherited from here and there, my view started to change on this. It changed to
+the point, where today I would say the same to fellow programmers.&lt;/p&gt;
+&lt;p&gt;Save time today by cutting corners (e.g. cutting on writing tests for a fix or a
+small feature) and you will waste 10x more trying to fix it later or add a new
+feature to it. But &lt;em&gt;if&lt;/em&gt; it would only be time that is wasted&amp;hellip; but its not just
+time, it is never only time&amp;hellip;&lt;/p&gt;
+&lt;p&gt;With bad code you will waste credit, clients will not trust your work and will
+have a fear from either deployment (what will break this time) or from not
+getting what they asked for (we got A and B, but C will only work if you
+sacrifice a chicken at a blood moon).&lt;/p&gt;
+&lt;p&gt;With bad code you will also waste the time of the users, if that user is trying
+to use your app to actually do their job, then you&amp;rsquo;re wasting their employer&amp;rsquo;s
+money as well.&lt;/p&gt;
+&lt;p&gt;With bad code you can cause your user to miss their monthly bonus, if you do an
+app that is used by employers to track employee performance.&lt;/p&gt;
+&lt;p&gt;With bad code you can also waste money of your client directly. Even if you do a
+small webshop and if any steps of the checkout or placing the product in the
+cart is acting badly, then your client will lose their clients.&lt;/p&gt;
+&lt;p&gt;With bad code you can get someone unemployed - doing an accounting application
+that doesn&amp;rsquo;t sum up everything correctly, or misses to add some taxes.&lt;/p&gt;
+&lt;p&gt;With bad code you can get someone imprisoned, as above bad tax reports can be
+seen as tax fraud in front of court.&lt;/p&gt;
+&lt;p&gt;With bad code you can kill someone even if you don&amp;rsquo;t do aviation or other
+safety-critical software.&lt;/p&gt;
+&lt;p&gt;There are lots of things that can go bad in software and while I enjoy making
+spaghetti code better, adding tests, breaking them down and adding meaning full
+naming. Every time I look at an app that is 100% spaghetti and I know that there
+are thousands of users using it daily, can&amp;rsquo;t help it but some questions comes to
+my head: &amp;ldquo;How did this make it out to production? Who thought this is okay to
+do? How is this still running?&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;If you write code that someone will use, then please ready the following three
+articles and take it to your heart. Think of them every time you code something!
+Even an accounting app can kill people!&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.dailymail.co.uk/news/article-9502925/Post-Office-scandal-Dozens-staff-today-convictions-quashed.html&#34;&gt;https://www.dailymail.co.uk/news/article-9502925/Post-Office-scandal-Dozens-staff-today-convictions-quashed.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/&#34;&gt;https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Volkswagen_emissions_scandal&#34;&gt;https://en.wikipedia.org/wiki/Volkswagen_emissions_scandal&lt;/a&gt; - this one is an
+exception. Here not the code quality, but the quality of the person who done
+the code knowingly is the issue.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Is your code good enough to do an open heart surgery with it? Would you bet your
+life on your code?&lt;/strong&gt;&lt;/p&gt;
+</description>
+		</item>
 		<item>
 			<title>TrueNAS &amp; Nextcloud</title>
 			<link>https://szab.it/posts/truenas-and-nextcloud/</link>

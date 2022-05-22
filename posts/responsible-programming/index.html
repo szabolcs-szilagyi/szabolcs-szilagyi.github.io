@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" />
+  <title>Responsible programming | this&#39;n&#39;that</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="As programmers we come a across quite often a question: &ldquo;Is the application safe to deploy?&rdquo;. Myself as well have been thinking at times should I deploy X or Y feature even I know there is an edge-case bug in there? Of course later those are the bugs that the users will find, even though they aren&rsquo;t looking, but just shows sometimes how far we get from the way our users would expect an application to work." />
+  <meta name="author" content="" />
+  <meta name="generator" content="Hugo 0.96.0" />
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="this&#39;n&#39;that Feed" />
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/style-compat.0a34ff675d25c2b1a4770ded078535a8cc6cf01bfacd81f778d6afe867b248ed.css" />
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/style.f5dcbf4dd08699b7669405f5790bcc67b9bf37343705215bf016e26f33e744f6.css" />
+  <!--<![endif]-->
+  <script defer src="/script.9df38729991a6ec08d83b60514e841529cebd5ccc800cf8e1f98fb63e73aaa73.js"></script>
+  <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101231825);</script>
+  <script async src="//static.getclicky.com/js"></script>
+</head>
+<body>
+<div class="pure-g">
+  <div class="pure-u-1-24 pure-u-md-5-24"></div>
+  <div class="pure-u-22-24 pure-u-md-14-24">
+  
+<div class="navigation">
+  <div class="navigation-header clearfix">
+    <div class="pure-menu pure-menu-horizontal">
+      <a class="pure-menu-heading pure-menu-link" href="/">
+        this&#39;n&#39;that
+      </a>
+    </div>
+  </div>
+  <div class="navigation-content">
+    <div class="pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item" title="All posts">
+          <a  class="pure-menu-link" href="/posts/">Posts</a>
+        </li>
+        <li class="pure-menu-item" title="All tags">
+          <a  class="pure-menu-link" href="/tags/">Tags</a>
+        </li>
+        <li class="pure-menu-item" title="About">
+          <a  class="pure-menu-link" href="/about/about/">About</a>
+        </li>
+        <li class="pure-menu-item" title="$ who">
+          <a  class="pure-menu-link" href="/about/who/">$ who</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+  
+<div>
+  <div>
+    <h2 class="post-title">
+      
+      Responsible programming
+    </h2>
+    
+<div class="post-meta">
+  <span>Date</span> &#x5b;
+    <time datetime="2022-05-22T12:01:00&#43;02:00">
+      2022-05-22T12:01:00&#43;02:00
+    </time>
+  &#x5d;
+</div>
+
+  </div>
+  <div>
+    <p>As programmers we come a across quite often a question: &ldquo;Is the application safe
+to deploy?&rdquo;. Myself as well have been thinking at times should I deploy X or Y
+feature even I know there is an edge-case bug in there? Of course later those
+are the bugs that the users will find, even though they aren&rsquo;t looking, but just
+shows sometimes how far we get from the way our users would expect an
+application to work.</p>
+<p>Long time ago when someone would say: <em>We can only deploy an application when it
+is safe to do open-heart surgery with it!</em> I would smile a bit to myself thinking
+that I&rsquo;m not doing medical equipment nor aviation software. But as years past
+and I got more experience working with spaghetti code and legacy systems that I
+inherited from here and there, my view started to change on this. It changed to
+the point, where today I would say the same to fellow programmers.</p>
+<p>Save time today by cutting corners (e.g. cutting on writing tests for a fix or a
+small feature) and you will waste 10x more trying to fix it later or add a new
+feature to it. But <em>if</em> it would only be time that is wasted&hellip; but its not just
+time, it is never only time&hellip;</p>
+<p>With bad code you will waste credit, clients will not trust your work and will
+have a fear from either deployment (what will break this time) or from not
+getting what they asked for (we got A and B, but C will only work if you
+sacrifice a chicken at a blood moon).</p>
+<p>With bad code you will also waste the time of the users, if that user is trying
+to use your app to actually do their job, then you&rsquo;re wasting their employer&rsquo;s
+money as well.</p>
+<p>With bad code you can cause your user to miss their monthly bonus, if you do an
+app that is used by employers to track employee performance.</p>
+<p>With bad code you can also waste money of your client directly. Even if you do a
+small webshop and if any steps of the checkout or placing the product in the
+cart is acting badly, then your client will lose their clients.</p>
+<p>With bad code you can get someone unemployed - doing an accounting application
+that doesn&rsquo;t sum up everything correctly, or misses to add some taxes.</p>
+<p>With bad code you can get someone imprisoned, as above bad tax reports can be
+seen as tax fraud in front of court.</p>
+<p>With bad code you can kill someone even if you don&rsquo;t do aviation or other
+safety-critical software.</p>
+<p>There are lots of things that can go bad in software and while I enjoy making
+spaghetti code better, adding tests, breaking them down and adding meaning full
+naming. Every time I look at an app that is 100% spaghetti and I know that there
+are thousands of users using it daily, can&rsquo;t help it but some questions comes to
+my head: &ldquo;How did this make it out to production? Who thought this is okay to
+do? How is this still running?&rdquo;</p>
+<p>If you write code that someone will use, then please ready the following three
+articles and take it to your heart. Think of them every time you code something!
+Even an accounting app can kill people!</p>
+<ul>
+<li><a href="https://www.dailymail.co.uk/news/article-9502925/Post-Office-scandal-Dozens-staff-today-convictions-quashed.html">https://www.dailymail.co.uk/news/article-9502925/Post-Office-scandal-Dozens-staff-today-convictions-quashed.html</a></li>
+<li><a href="https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/">https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Volkswagen_emissions_scandal">https://en.wikipedia.org/wiki/Volkswagen_emissions_scandal</a> - this one is an
+exception. Here not the code quality, but the quality of the person who done
+the code knowingly is the issue.</li>
+</ul>
+<p><strong>Is your code good enough to do an open heart surgery with it? Would you bet your
+life on your code?</strong></p>
+
+    <script src="https://utteranc.es/client.js"
+            repo="szabolcs-szilagyi/szabolcs-szilagyi.github.io"
+            issue-term="pathname"
+            label="comment"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+  <div class="footer">
+  <div class="pure-menu pure-menu-horizontal">
+    <ul class="pure-menu-list">
+      <li class="pure-menu-item" title="github profile">
+        <a class="pure-menu-link" href="https://github.com/szabolcs-szilagyi/">GitHub</a>
+      </li>
+      <li class="pure-menu-item" title="linked in profile">
+        <a class="pure-menu-link" href="https://www.linkedin.com/in/szabszilagyi/">LinkedIn</a>
+      </li>
+      <li class="pure-menu-item" title="RSS Feed">
+        <a href="/index.xml" class="pure-menu-link">RSS</a>
+      </li>
+      <li class="pure-menu-item fix-cursor-pointer" title="Go to top">
+        <a class="pure-menu-link" id="btn-gototop">
+          <span class="fix-placement-up">&#x21e7;&#xfe0e;</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+  </div>
+  <div class="pure-u-1-24 pure-u-md-5-24"></div>
+</div>
+</body>
+</html>
