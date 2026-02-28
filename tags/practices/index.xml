@@ -1,9 +1,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>practices on this&#39;n&#39;that</title>
+		<title>Practices on this&#39;n&#39;that</title>
 		<link>https://szab.it/tags/practices/</link>
-		<description>Recent content in practices on this&#39;n&#39;that</description>
-		<generator>Hugo 0.96.0 -- gohugo.io</generator>
+		<description>Recent content in Practices on this&#39;n&#39;that</description>
+		<generator>Hugo 0.123.7 -- gohugo.io</generator>
 		<language>en-us</language>
 		<lastBuildDate>Sun, 22 May 2022 12:01:00 +0200</lastBuildDate>
 		<atom:link href="https://szab.it/tags/practices/index.xml" rel="self" type="application/rss+xml" />
@@ -67,7 +67,8 @@ life on your code?&lt;/strong&gt;&lt;/p&gt;
 </description>
 		</item>
 		<item>
-			<title>MongoDB deprecating &#34;count&#34;</title>
+			<title>  MongoDB deprecating &#34;count&#34;
+  </title>
 			<link>https://szab.it/posts/mongodb-deprecating-count/</link>
 			<pubDate>Sun, 01 Mar 2020 09:22:00 +0100</pubDate>
 			<guid isPermaLink="true">https://szab.it/posts/mongodb-deprecating-count/</guid>

@@ -1,9 +1,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>security on this&#39;n&#39;that</title>
+		<title>Security on this&#39;n&#39;that</title>
 		<link>https://szab.it/tags/security/</link>
-		<description>Recent content in security on this&#39;n&#39;that</description>
-		<generator>Hugo 0.96.0 -- gohugo.io</generator>
+		<description>Recent content in Security on this&#39;n&#39;that</description>
+		<generator>Hugo 0.123.7 -- gohugo.io</generator>
 		<language>en-us</language>
 		<lastBuildDate>Mon, 22 Feb 2021 18:39:00 +0100</lastBuildDate>
 		<atom:link href="https://szab.it/tags/security/index.xml" rel="self" type="application/rss+xml" />

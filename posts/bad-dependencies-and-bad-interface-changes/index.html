@@ -8,7 +8,7 @@
   <meta name="description" content="Recently one of my colleagues has shared his pain about a nodeJS package that we use to zip files.
 His issue was that the library stopped generating the zip files and just hangs. Eventually found, that in the project the package in question has been upgraded, but with a small issue. The newer version has changed the interface and the same method instead of returning the instance it returns a Promise." />
   <meta name="author" content="" />
-  <meta name="generator" content="Hugo 0.96.0" />
+  <meta name="generator" content="Hugo 0.123.7">
   <link href="/index.xml" rel="alternate" type="application/rss+xml" title="this&#39;n&#39;that Feed" />
   <!--[if lte IE 8]>
   <link rel="stylesheet" href="/style-compat.0a34ff675d25c2b1a4770ded078535a8cc6cf01bfacd81f778d6afe867b248ed.css" />
@@ -65,8 +65,7 @@ His issue was that the library stopped generating the zip files and just hangs. 
   <span>Date</span> &#x5b;
     <time datetime="2020-01-25T12:35:00&#43;01:00">
       2020-01-25T12:35:00&#43;01:00
-    </time>
-  &#x5d;
+    </time>&#x5d;<br />
 </div>
 
   </div>
@@ -199,9 +198,9 @@ there as well, that can be found for Linux.</p>
 know the location of the file as well.</p>
 <p>Here comes the idea:</p>
 <ul>
-<li>we have linux <input checked="" disabled="" type="checkbox"> </li>
-<li>we have the files/folders accessible <input checked="" disabled="" type="checkbox"> </li>
-<li>we could have the <code>zip</code> program on the system <input checked="" disabled="" type="checkbox"> </li>
+<li>we have linux [X]</li>
+<li>we have the files/folders accessible [X]</li>
+<li>we could have the <code>zip</code> program on the system [X]</li>
 </ul>
 <p>So in effect we could axe a third party npm package and use <a href="https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback">child_process.exec</a>
 or <a href="https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options">child_process.spawn</a> method&rsquo;s from NodeJS itself. The extra 3rd party in this

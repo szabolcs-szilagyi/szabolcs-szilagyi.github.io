@@ -3,7 +3,7 @@
 		<title>NodeJS on this&#39;n&#39;that</title>
 		<link>https://szab.it/tags/nodejs/</link>
 		<description>Recent content in NodeJS on this&#39;n&#39;that</description>
-		<generator>Hugo 0.96.0 -- gohugo.io</generator>
+		<generator>Hugo 0.123.7 -- gohugo.io</generator>
 		<language>en-us</language>
 		<lastBuildDate>Sat, 30 Apr 2022 12:07:00 +0200</lastBuildDate>
 		<atom:link href="https://szab.it/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
@@ -344,9 +344,9 @@ there as well, that can be found for Linux.&lt;/p&gt;
 know the location of the file as well.&lt;/p&gt;
 &lt;p&gt;Here comes the idea:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;we have linux &lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &lt;/li&gt;
-&lt;li&gt;we have the files/folders accessible &lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &lt;/li&gt;
-&lt;li&gt;we could have the &lt;code&gt;zip&lt;/code&gt; program on the system &lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &lt;/li&gt;
+&lt;li&gt;we have linux [X]&lt;/li&gt;
+&lt;li&gt;we have the files/folders accessible [X]&lt;/li&gt;
+&lt;li&gt;we could have the &lt;code&gt;zip&lt;/code&gt; program on the system [X]&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;So in effect we could axe a third party npm package and use &lt;a href=&#34;https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback&#34;&gt;child_process.exec&lt;/a&gt;
 or &lt;a href=&#34;https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options&#34;&gt;child_process.spawn&lt;/a&gt; method&amp;rsquo;s from NodeJS itself. The extra 3rd party in this

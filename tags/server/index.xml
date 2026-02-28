@@ -1,9 +1,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>server on this&#39;n&#39;that</title>
+		<title>Server on this&#39;n&#39;that</title>
 		<link>https://szab.it/tags/server/</link>
-		<description>Recent content in server on this&#39;n&#39;that</description>
-		<generator>Hugo 0.96.0 -- gohugo.io</generator>
+		<description>Recent content in Server on this&#39;n&#39;that</description>
+		<generator>Hugo 0.123.7 -- gohugo.io</generator>
 		<language>en-us</language>
 		<lastBuildDate>Sat, 07 May 2022 10:42:00 +0200</lastBuildDate>
 		<atom:link href="https://szab.it/tags/server/index.xml" rel="self" type="application/rss+xml" />
