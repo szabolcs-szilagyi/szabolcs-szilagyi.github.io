@@ -5,8 +5,46 @@
 		<description>Recent content in Posts on this&#39;n&#39;that</description>
 		<generator>Hugo 0.123.7 -- gohugo.io</generator>
 		<language>en-us</language>
-		<lastBuildDate>Sun, 22 May 2022 12:01:00 +0200</lastBuildDate>
+		<lastBuildDate>Sat, 28 Feb 2026 14:31:00 +0100</lastBuildDate>
 		<atom:link href="https://szab.it/posts/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>plex-desktop crash due to custom keyboard layout</title>
+			<link>https://szab.it/posts/plex-desktop-crash-due-to-custom-keyboard-layout/</link>
+			<pubDate>Sat, 28 Feb 2026 14:31:00 +0100</pubDate>
+			<guid isPermaLink="true">https://szab.it/posts/plex-desktop-crash-due-to-custom-keyboard-layout/</guid>
+			<description>&lt;p&gt;Recently I started to use Plex for music streaming. At first I&amp;rsquo;ve used it via
+browser, but then decided to use their desktop app. Wanted to move away from the
+browser, so my music wouldn&amp;rsquo;t stop, when I quit the browser.&lt;/p&gt;
+&lt;p&gt;Installed their app using &lt;code&gt;snap&lt;/code&gt;, tried to run it, but it would crash at start up:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-nil&#34; data-lang=&#34;nil&#34;&gt;$ snap run plex-desktop
+qt.scenegraph.general: Using QRhi with backend OpenGL
+  Graphics API debug/validation layers: 0
+  QRhi profiling and debug markers: 0
+  Shader/pipeline cache collection: 0
+qt.scenegraph.general: Using QRhi with backend OpenGL
+  Graphics API debug/validation layers: 0
+  QRhi profiling and debug markers: 0
+  Shader/pipeline cache collection: 0
+xkbcommon: ERROR: Couldn&amp;#39;t process include statement for &amp;#39;us(euro-hu)&amp;#39;
+xkbcommon: ERROR: Abandoning symbols file &amp;#34;(unnamed)&amp;#34;
+xkbcommon: ERROR: Failed to compile xkb_symbols
+xkbcommon: ERROR: Failed to compile keymap
+[44758:44800:0228/142127.312652:FATAL:xkb_keyboard_layout_engine.cc(640)] Keymap file failed to load: us-euro-hu
+Trace/breakpoint trap (core dumped)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It didn&amp;rsquo;t like my keyboard layout&amp;hellip; what an odd error isn&amp;rsquo;t it?!&lt;/p&gt;
+&lt;p&gt;To tackle this issue, I&amp;rsquo;ve created a start up script that would first change
+keyboard layout and then start the app.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;setxkbmap us &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /snap/bin/plex-desktop
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This changes keyboard layout globally, so that is no fun. Next step, lets reset
+the keyboard layout, after plex passed its critical moment in startup. Today&amp;rsquo;s
+final version:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;setxkbmap us &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /snap/bin/plex-desktop&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &amp;amp;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;setxkbmap -layout us -variant euro-hu -option ctrl:swapcaps
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Yay! The End :)&lt;/p&gt;
+</description>
+		</item>
 		<item>
 			<title>Responsible programming</title>
 			<link>https://szab.it/posts/responsible-programming/</link>
