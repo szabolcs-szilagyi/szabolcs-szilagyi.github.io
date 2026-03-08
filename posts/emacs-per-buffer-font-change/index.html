@@ -2,14 +2,14 @@
 <html lang="en-us">
 <head>
   <meta charset="utf-8" />
-  <title>Tips | this&#39;n&#39;that</title>
+  <title>emacs per buffer font change | this&#39;n&#39;that</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="description" content="" />
+  <meta name="description" content="Just a small elisp snippet to change font per buffer in emacs:
+(defun my-buffer-face-mode-pick-font () &#34;Pick a font family using Helm and apply it to the current buffer.&#34; (interactive) (let ((font (helm :sources (helm-build-sync-source &#34;Font Family&#34; :candidates (sort (font-family-list) #&#39;string&lt;) :action (lambda (candidate) candidate)) :buffer &#34;*helm-font-picker*&#34;))) (when font (setq buffer-face-mode-face `(:family ,font)) (buffer-face-mode)))) https://stackoverflow.com/questions/20866169/change-the-font-of-current-buffer-in-emacs" />
   <meta name="author" content="" />
   <meta name="generator" content="Hugo 0.123.7">
   <link href="/index.xml" rel="alternate" type="application/rss+xml" title="this&#39;n&#39;that Feed" />
-  <link href="/tags/tips/index.xml" rel="alternate" type="application/rss+xml" title="this&#39;n&#39;that Tips Feed" />
   <!--[if lte IE 8]>
   <link rel="stylesheet" href="/style-compat.0a34ff675d25c2b1a4770ded078535a8cc6cf01bfacd81f778d6afe867b248ed.css" />
   <![endif]-->
@@ -55,13 +55,12 @@
 
   
 <div>
-  <p>Tips:</p>
-  <ul>
-    <li>
-      <div class="post-title">
-        <a href="/posts/emacs-per-buffer-font-change/">emacs per buffer font change</a>
-      </div>
+  <div>
+    <h2 class="post-title">
       
+      emacs per buffer font change
+    </h2>
+    
 <div class="post-meta">
   <span>Date</span> &#x5b;
     <time datetime="2026-03-08T14:38:00&#43;01:00">
@@ -69,37 +68,31 @@
     </time>&#x5d;<br />
 </div>
 
-    </li>
-    <li>
-      <div class="post-title">
-        <a href="/posts/plex-desktop-crash-due-to-custom-keyboard-layout/">plex-desktop crash due to custom keyboard layout</a>
-      </div>
-      
-<div class="post-meta">
-  <span>Date</span> &#x5b;
-    <time datetime="2026-02-28T14:31:00&#43;01:00">
-      2026-02-28T14:31:00&#43;01:00
-    </time>&#x5d;<br />
+  </div>
+  <div>
+    <p>Just a small elisp snippet to change font per buffer in emacs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>(defun my-buffer-face-mode-pick-font ()
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;Pick a font family using Helm and apply it to the current buffer.&#34;</span>
+</span></span><span style="display:flex;"><span>  (interactive)
+</span></span><span style="display:flex;"><span>  (let ((font (helm :sources (helm-build-sync-source <span style="color:#e6db74">&#34;Font Family&#34;</span>
+</span></span><span style="display:flex;"><span>                               :candidates (<span style="color:#a6e22e">sort</span> (<span style="color:#a6e22e">font-family-list</span>) <span style="color:#a6e22e">#&#39;</span>string&lt;)
+</span></span><span style="display:flex;"><span>                               :action (lambda (candidate) candidate))
+</span></span><span style="display:flex;"><span>                    :buffer <span style="color:#e6db74">&#34;*helm-font-picker*&#34;</span>)))
+</span></span><span style="display:flex;"><span>    (when font
+</span></span><span style="display:flex;"><span>      (setq buffer-face-mode-face <span style="color:#f92672">`</span>(:family <span style="color:#f92672">,</span>font))
+</span></span><span style="display:flex;"><span>      (buffer-face-mode))))
+</span></span></code></pre></div><p><a href="https://stackoverflow.com/questions/20866169/change-the-font-of-current-buffer-in-emacs">https://stackoverflow.com/questions/20866169/change-the-font-of-current-buffer-in-emacs</a></p>
+
+    <script src="https://utteranc.es/client.js"
+            repo="szabolcs-szilagyi/szabolcs-szilagyi.github.io"
+            issue-term="pathname"
+            label="comment"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
 </div>
-
-    </li>
-    <li>
-      <div class="post-title">
-        <a href="/posts/git-global-ignore-file/">Git global ignore file</a>
-      </div>
-      
-<div class="post-meta">
-  <span>Date</span> &#x5b;
-    <time datetime="2017-02-11T11:08:00&#43;01:00">
-      2017-02-11T11:08:00&#43;01:00
-    </time>&#x5d;<br />
-</div>
-
-    </li>
-  </ul>
-</div>
-
-
   <div class="footer">
   <div class="pure-menu pure-menu-horizontal">
     <ul class="pure-menu-list">

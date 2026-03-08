@@ -5,7 +5,7 @@
 		<description>Recent content on this&#39;n&#39;that</description>
 		<generator>Hugo 0.123.7 -- gohugo.io</generator>
 		<language>en-us</language>
-		<lastBuildDate>Sat, 28 Feb 2026 14:31:00 +0100</lastBuildDate>
+		<lastBuildDate>Sun, 08 Mar 2026 14:38:00 +0100</lastBuildDate>
 		<atom:link href="https://szab.it/index.xml" rel="self" type="application/rss+xml" />
 		<item>
 			<title>About</title>
@@ -38,6 +38,25 @@ idealistic solutions and their pros and cons.&lt;/p&gt;
 family.&lt;/p&gt;
 &lt;p&gt;You can find up-to-date information about me, on my linkedin profile:
 &lt;a href=&#34;https://www.linkedin.com/in/szabszilagyi/&#34;&gt;https://www.linkedin.com/in/szabszilagyi/&lt;/a&gt;&lt;/p&gt;
+</description>
+		</item>
+		<item>
+			<title>emacs per buffer font change</title>
+			<link>https://szab.it/posts/emacs-per-buffer-font-change/</link>
+			<pubDate>Sun, 08 Mar 2026 14:38:00 +0100</pubDate>
+			<guid isPermaLink="true">https://szab.it/posts/emacs-per-buffer-font-change/</guid>
+			<description>&lt;p&gt;Just a small elisp snippet to change font per buffer in emacs:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-elisp&#34; data-lang=&#34;elisp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;(defun my-buffer-face-mode-pick-font ()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Pick a font family using Helm and apply it to the current buffer.&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  (interactive)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  (let ((font (helm :sources (helm-build-sync-source &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Font Family&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                               :candidates (&lt;span style=&#34;color:#a6e22e&#34;&gt;sort&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;font-family-list&lt;/span&gt;) &lt;span style=&#34;color:#a6e22e&#34;&gt;#&amp;#39;&lt;/span&gt;string&amp;lt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                               :action (lambda (candidate) candidate))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    :buffer &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;*helm-font-picker*&amp;#34;&lt;/span&gt;)))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    (when font
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      (setq buffer-face-mode-face &lt;span style=&#34;color:#f92672&#34;&gt;`&lt;/span&gt;(:family &lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt;font))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      (buffer-face-mode))))
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/20866169/change-the-font-of-current-buffer-in-emacs&#34;&gt;https://stackoverflow.com/questions/20866169/change-the-font-of-current-buffer-in-emacs&lt;/a&gt;&lt;/p&gt;
 </description>
 		</item>
 		<item>

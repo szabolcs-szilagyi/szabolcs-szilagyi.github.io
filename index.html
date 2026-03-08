@@ -57,6 +57,26 @@
   <div>
     <h2 class="post-title">
       
+      <a href="/posts/emacs-per-buffer-font-change/">emacs per buffer font change</a>
+    </h2>
+    
+<div class="post-meta">
+  <span>Date</span> &#x5b;
+    <time datetime="2026-03-08T14:38:00&#43;01:00">
+      2026-03-08T14:38:00&#43;01:00
+    </time>&#x5d;<br />
+</div>
+
+  </div>
+  <div>
+    Just a small elisp snippet to change font per buffer in emacs:
+(defun my-buffer-face-mode-pick-font () &#34;Pick a font family using Helm and apply it to the current buffer.&#34; (interactive) (let ((font (helm :sources (helm-build-sync-source &#34;Font Family&#34; :candidates (sort (font-family-list) #&#39;string&lt;) :action (lambda (candidate) candidate)) :buffer &#34;*helm-font-picker*&#34;))) (when font (setq buffer-face-mode-face `(:family ,font)) (buffer-face-mode)))) https://stackoverflow.com/questions/20866169/change-the-font-of-current-buffer-in-emacs
+  </div>
+</div>
+<div>
+  <div>
+    <h2 class="post-title">
+      
       <a href="/posts/plex-desktop-crash-due-to-custom-keyboard-layout/">plex-desktop crash due to custom keyboard layout</a>
     </h2>
     
@@ -236,29 +256,22 @@ His issue was that the library stopped generating the zip files and just hangs. 
 In GNU/Linux to change keyboard layout isn&rsquo;t the easiest to do. As far as I remember (from about 10 years ago) in Windows there is a graphical app that helps you with this.
   </div>
 </div>
-<div>
-  <div>
-    <h2 class="post-title">
-      
-      <a href="/posts/git-global-ignore-file/">Git global ignore file</a>
-    </h2>
-    
-<div class="post-meta">
-  <span>Date</span> &#x5b;
-    <time datetime="2017-02-11T11:08:00&#43;01:00">
-      2017-02-11T11:08:00&#43;01:00
-    </time>&#x5d;<br />
-</div>
 
+  <div class="pagination-content">
+    <div class="pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item pure-menu-disabled">
+          Pages
+        </li>
+        <li class="pure-menu-item pure-menu-selected">
+          <a href="/" class="pure-menu-link">First</a>
+        </li>
+        <li class="pure-menu-item">
+          <a href="/page/2/" class="pure-menu-link">Last</a>
+        </li>
+      </ul>
+    </div>
   </div>
-  <div>
-    the repo and you don&rsquo;t even want it to be listed in the .gitignore file of the repository.
-If you have multiple repositories, then there is a nice way to do it per user, using the core.excludesFile config property of git.
-This might be set in your git install already (it wasn&rsquo;t the case for me, but still worth to check it):
-git config --global --get core.excludesFile If it returns path to a file, then just simply add your ignore pattern to that file (just a todo.
-  </div>
-</div>
-
 
   <div class="footer">
   <div class="pure-menu pure-menu-horizontal">
